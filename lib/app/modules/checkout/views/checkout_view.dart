@@ -24,13 +24,57 @@ class CheckoutView extends GetView<CheckoutController> {
           SizedBox(
             height: 10,
           ),
-          cardItem(),       SizedBox(
-            height: 10,
-          ),
-          cardItem(),SizedBox(
+          cardItem(),
+          SizedBox(
             height: 10,
           ),
           cardItem(),
+          SizedBox(
+            height: 10,
+          ),
+          cardItem(),
+          SizedBox(
+            height: 50,
+          ),
+          Container(
+            color: KprimaryColor.withOpacity(.3),
+            child: Center(
+                child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                'المجموع : 670 جنيه',
+                style: TextStyle(
+                  color: KprimaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )),
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: MaterialButton(
+              elevation: 0,
+              height: 60,
+              color: KprimaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+              onPressed: () {},
+              child: Text(
+                'انشاء طلب',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 50,
+          ),
         ],
       ),
     );
@@ -48,23 +92,25 @@ class CheckoutView extends GetView<CheckoutController> {
             ),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
                     ),
                   ),
                   child: FittedBox(
-                    child: Image.asset('images/product_01.png'),
+                    fit: BoxFit.fill,
+                    child: Image.asset('images/product_04.png'),
                   ),
                 ),
               ),
               SizedBox(
-                width: 10,
+                width: 20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +130,15 @@ class CheckoutView extends GetView<CheckoutController> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('التاجر : محمود'),
+                  Row(
+                    children: [
+                      Text('التاجر : '),
+                      Image.asset(
+                        'images/brand_00.png',
+                        width: 32,
+                      )
+                    ],
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -142,11 +196,14 @@ class CheckoutView extends GetView<CheckoutController> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
               SizedBox(
-                width: 10,
+                width: 20,
               ),
               Container(
                 child: Align(
@@ -167,4 +224,5 @@ class CheckoutView extends GetView<CheckoutController> {
           ),
         ),
       );
+
 }

@@ -87,8 +87,22 @@ class HomeView extends GetView<HomeController> {
             child: Row(
               children: List.generate(
                 imageList.length,
-                (index) => boxCircle(
-                  image: imageList.elementAt(index),
+                (index) => Column(
+                  children: [
+                    boxCircle(
+                      image: imageList.elementAt(index),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'امجاد',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: KprimaryColor,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -124,6 +138,7 @@ class HomeView extends GetView<HomeController> {
           ),
           defualtTitle(
             title: 'اقسام فرعية',
+            textButtontitle: 'عرض الكل'
           ),
           SizedBox(
             height: 10,
@@ -217,7 +232,7 @@ class HomeView extends GetView<HomeController> {
               children: List.generate(
                 10,
                 (index) => productBox(
-                  image: productImage.elementAt(0),
+                  image: productImage.elementAt(1),
                 ),
               ),
             ),

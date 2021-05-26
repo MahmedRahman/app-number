@@ -9,6 +9,8 @@ abstract class Routes {
   static const CHECKOUT = _Paths.CHECKOUT;
   static const DEPARTMENT = _Paths.DEPARTMENT;
   static const TRADER = _Paths.TRADER;
+  static const NOTIFACTION = _Paths.NOTIFACTION;
+  static const FAVOURITE = _Paths.FAVOURITE;
 }
 
 abstract class _Paths {
@@ -19,4 +21,6 @@ abstract class _Paths {
   static const CHECKOUT = '/checkout';
   static const DEPARTMENT = '/department';
   static const TRADER = '/trader';
+  static const NOTIFACTION = '/notifaction';
+  static const FAVOURITE = '/favourite';
 }

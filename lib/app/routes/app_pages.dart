@@ -6,10 +6,14 @@ import 'package:app_number/app/modules/checkout/bindings/checkout_binding.dart';
 import 'package:app_number/app/modules/checkout/views/checkout_view.dart';
 import 'package:app_number/app/modules/department/bindings/department_binding.dart';
 import 'package:app_number/app/modules/department/views/department_view.dart';
+import 'package:app_number/app/modules/favourite/bindings/favourite_binding.dart';
+import 'package:app_number/app/modules/favourite/views/favourite_view.dart';
 import 'package:app_number/app/modules/home/bindings/home_binding.dart';
 import 'package:app_number/app/modules/home/views/home_view.dart';
 import 'package:app_number/app/modules/layout/bindings/layout_binding.dart';
 import 'package:app_number/app/modules/layout/views/layout_view.dart';
+import 'package:app_number/app/modules/notifaction/bindings/notifaction_binding.dart';
+import 'package:app_number/app/modules/notifaction/views/notifaction_view.dart';
 import 'package:app_number/app/modules/splash/bindings/splash_binding.dart';
 import 'package:app_number/app/modules/splash/views/splash_view.dart';
 import 'package:app_number/app/modules/trader/bindings/trader_binding.dart';
@@ -55,6 +59,16 @@ class AppPages {
       name: _Paths.TRADER,
       page: () => TraderView(),
       binding: TraderBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFACTION,
+      page: () => NotifactionView(),
+      binding: NotifactionBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAVOURITE,
+      page: () => FavouriteView(),
+      binding: FavouriteBinding(),
     ),
   ];
 }

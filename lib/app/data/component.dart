@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget defualtTitle({
   @required String title,
+  String textButtontitle='',
 }) =>
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -16,9 +17,9 @@ Widget defualtTitle({
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    KprimaryColor,
-                    KprimaryColor.withOpacity(.6),
-                    KprimaryColor.withOpacity(1),
+                    Color(0xffAE1D6D),
+                   
+                    Color(0xffCC1569),
                   ],
                 ),
                 color: KprimaryColor,
@@ -29,7 +30,7 @@ Widget defualtTitle({
               ),
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 child: Text(
                   title,
                   style: TextStyle(
@@ -41,15 +42,11 @@ Widget defualtTitle({
             ),
             Directionality(
               textDirection: TextDirection.ltr,
-              child: TextButton.icon(
+              child: TextButton(
                 onPressed: () {},
-                icon: Icon(
-                  FontAwesomeIcons.arrowAltCircleDown,
-                  size: 16,
-                  color: Colors.black,
-                ),
-                label: Text(
-                  'عرض الكل',
+            
+                child: Text(
+                  textButtontitle,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     color: KprimaryColor,
@@ -182,103 +179,121 @@ Widget productBox({@required String image}) => Padding(
             color: Colors.grey,
           ),
         ),
-        child: Column(
+        child: Stack(
+          alignment: Alignment.topLeft,
           children: [
-            Container(
-              height: 150,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-              ),
-              child: Image.asset(
-                image,
-                fit: BoxFit.fill,
-              ),
-            ),
-          
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'تيشيرت ابيض',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            Row(
+            Column(
               children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  '230',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: KprimaryColor,
+                Container(
+                  height: 150,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'جنيه',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: KprimaryColor,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'تيشيرت ابيض',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '230',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: KprimaryColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'جنيه',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: KprimaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'التاجر',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+             Image.asset('images/brand_00.png',width: 32,)
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                MaterialButton(
+                  elevation: 0,
+                  color: KprimaryColor.withOpacity(.2),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    'اضف الى السلة',
+                    style: TextStyle(
+                      color: KprimaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 10,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
                 ),
-                Text(
-                  'التاجر',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'جنيه',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-         
-         
-            MaterialButton(
-              color: KprimaryColor.withOpacity(.2),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
+                child: IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      color: KprimaryColor,
+                    ),
+                    onPressed: () {}),
               ),
-              onPressed: () {},
-              child: Text(
-                'اضف الى السلة',
-                style: TextStyle(
-                  color: KprimaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
             ),
           ],
         ),

@@ -2,7 +2,9 @@ import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/modules/acount/views/acount_view.dart';
 import 'package:app_number/app/modules/checkout/views/checkout_view.dart';
 import 'package:app_number/app/modules/department/views/department_view.dart';
+import 'package:app_number/app/modules/favourite/views/favourite_view.dart';
 import 'package:app_number/app/modules/home/views/home_view.dart';
+import 'package:app_number/app/modules/notifaction/views/notifaction_view.dart';
 import 'package:app_number/app/modules/trader/views/trader_view.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +21,15 @@ class LayoutView extends GetView<LayoutController> {
       new GlobalKey<SliderMenuContainerState>();
 
   List<Widget> screen = [
-    TraderView(),
-    DepartmentView(),
+     DepartmentView(),
+    FavouriteView(),
+   
     HomeView(),
     CheckoutView(),
     AcountView(),
   ];
 
-  var selectScreen = 1.obs;
+  var selectScreen = 2.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -291,7 +294,12 @@ class LayoutView extends GetView<LayoutController> {
                             ),
                             IconButton(
                               icon: SvgPicture.asset('images/notifaction.svg'),
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(
+                                  NotifactionView(),
+                                  fullscreenDialog: true,
+                                );
+                              },
                             )
                           ],
                         ),
@@ -342,14 +350,14 @@ class LayoutView extends GetView<LayoutController> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
-                      FontAwesomeIcons.solidHandshake,
+                      FontAwesomeIcons.archway,
                       color: KsecondaryColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Icon(
-                      FontAwesomeIcons.archway,
+                      FontAwesomeIcons.heart,
                       color: KsecondaryColor,
                     ),
                   ),

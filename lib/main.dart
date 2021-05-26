@@ -8,21 +8,16 @@ import 'app/routes/app_pages.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-
-    SystemUiOverlayStyle(statusBarColor: KprimaryColor,
-
-    systemNavigationBarColor: KprimaryColor
+    SystemUiOverlayStyle(
+      statusBarColor: KprimaryColor,
+      systemNavigationBarColor: KprimaryColor,
     ),
-
-
-
-    
   );
 
   runApp(
     GetMaterialApp(
       textDirection: TextDirection.rtl,
-      title: "Application",
+      title: "Number One",
       initialRoute: AppPages.INITIAL,
       debugShowCheckedModeBanner: false,
       getPages: AppPages.routes,

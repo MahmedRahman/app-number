@@ -1,4 +1,5 @@
 import 'package:app_number/app/data/app_const.dart';
+import 'package:app_number/app/modules/favourite/views/favourite_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -10,18 +11,17 @@ class AcountView extends GetView<AcountController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Container(
               width: double.infinity,
               height: 180,
               decoration: BoxDecoration(
-               
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                 ),
@@ -62,25 +62,31 @@ class AcountView extends GetView<AcountController> {
                 ],
               ),
             ),
-          
             Card(
               child: ListTile(
+                onTap: () {
+                
+                },
                 title: Text('المفضلة'),
                 leading: Icon(
                   FontAwesomeIcons.solidHeart,
                   color: KprimaryColor,
                 ),
               ),
-            ),     Card(
+            ),
+                 Card(
               child: ListTile(
-                title: Text('سلة المشتريات'),
+                onTap: () {
+                
+                },
+                title: Text('ٍسلة المشتريات'),
                 leading: Icon(
                   FontAwesomeIcons.shoppingCart,
                   color: KprimaryColor,
                 ),
               ),
             ),
-             Card(
+            Card(
               child: ListTile(
                 title: Text('طلباتى'),
                 leading: Icon(
@@ -98,7 +104,7 @@ class AcountView extends GetView<AcountController> {
                 ),
               ),
             ),
-              Card(
+            Card(
               child: ListTile(
                 title: Text('تسجيل الخروج'),
                 leading: Icon(
@@ -107,9 +113,6 @@ class AcountView extends GetView<AcountController> {
                 ),
               ),
             )
-         
-         
-         
           ],
         ),
       ),
