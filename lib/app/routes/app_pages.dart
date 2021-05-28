@@ -16,6 +16,8 @@ import 'package:app_number/app/modules/layout/bindings/layout_binding.dart';
 import 'package:app_number/app/modules/layout/views/layout_view.dart';
 import 'package:app_number/app/modules/notifaction/bindings/notifaction_binding.dart';
 import 'package:app_number/app/modules/notifaction/views/notifaction_view.dart';
+import 'package:app_number/app/modules/product/bindings/product_binding.dart';
+import 'package:app_number/app/modules/product/views/product_view.dart';
 import 'package:app_number/app/modules/shopstatus/bindings/shopstatus_binding.dart';
 import 'package:app_number/app/modules/shopstatus/views/shopstatus_view.dart';
 import 'package:app_number/app/modules/splash/bindings/splash_binding.dart';
@@ -58,13 +60,12 @@ class AppPages {
       name: _Paths.DEPARTMENT,
       page: () => DepartmentView(),
       binding: DepartmentBinding(),
-      children: [
-        GetPage(
-          name: _Paths.DEPARTMENT_DETAIL,
-          page: () => DepartmentDetailView(),
-          binding: DepartmentDetailBinding(),
-        ),
-      ],
+      children: [],
+    ),
+    GetPage(
+      name: _Paths.DEPARTMENT_DETAIL,
+      page: () => DepartmentDetailView(),
+      binding: DepartmentDetailBinding(),
     ),
     GetPage(
       name: _Paths.TRADER,
@@ -85,6 +86,11 @@ class AppPages {
       name: _Paths.SHOPSTATUS,
       page: () => ShopstatusView(),
       binding: ShopstatusBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCT,
+      page: () => ProductView(),
+      binding: ProductBinding(),
     ),
   ];
 }

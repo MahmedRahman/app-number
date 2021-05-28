@@ -1,6 +1,7 @@
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/data/component.dart';
 import 'package:app_number/app/data/data.dart';
+import 'package:app_number/app/modules/department/detail/views/department_detail_view.dart';
 import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -115,9 +116,11 @@ class HomeView extends GetView<HomeController> {
             children: List.generate(
               productImage.length,
               (index) => boxTitle(
-                image: productImage.elementAt(index),
-                title: 'الازياء',
-              ),
+                  image: productImage.elementAt(index),
+                  title: 'الازياء',
+                  onclick: () {
+                    Get.to(DepartmentDetailView(), fullscreenDialog: true);
+                  }),
             ),
           ),
 
@@ -217,8 +220,10 @@ class HomeView extends GetView<HomeController> {
               children: List.generate(
                 10,
                 (index) => productBox(
-                  image: productImage.elementAt(1),
-                ),
+                    image: productImage.elementAt(1),
+                    onClick: () {
+                      Get.toNamed(Routes.PRODUCT);
+                    }),
               ),
             ),
           ),

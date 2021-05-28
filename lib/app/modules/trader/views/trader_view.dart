@@ -11,32 +11,13 @@ import '../controllers/trader_controller.dart';
 class TraderView extends GetView<TraderController> {
   @override
   Widget build(BuildContext context) {
-    List<String> imageList = [
-      'images/brand_00.png',
-      'images/brand_01.png',
-      'images/brand_02.png',
-      'images/brand_03.png',
-      'images/brand_02.png',
-      'images/brand_03.png',
-      'images/brand_00.png',
-      'images/brand_01.png',
-      'images/brand_02.png',
-      'images/brand_03.png',
-      'images/brand_02.png',
-      'images/brand_03.png',
-      'images/brand_00.png',
-      'images/brand_01.png',
-      'images/brand_02.png',
-      'images/brand_03.png',
-      'images/brand_02.png',
-      'images/brand_03.png',
-    ];
-
     return Scaffold(
-      appBar: customAppBar(),
+      appBar: AppBar(
+        title: Text('التاجر'),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
+        child: ListView(
           children: [
             SizedBox(
               height: 40,
@@ -46,91 +27,88 @@ class TraderView extends GetView<TraderController> {
                 SizedBox(
                   width: 10,
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.red,
+                Container(
+                  decoration: new BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: new Border.all(
+                      color: KprimaryColor,
+                      width: 1.0,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      FontAwesomeIcons.shoppingBag,
+                      color: KprimaryColor,
+                    ),
+                    radius: 30,
+                  ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                Column(
-                  children: [
-                    Text(
-                      'سلسلة محلات الدلتا ',
-                      style: TextStyle(
-                          color: KprimaryColor, fontWeight: FontWeight.bold),
-                    ),
-                    Text('ملابس منوعة / القاهرة '),
-                  ],
+                Expanded(
+                  child: Text(
+                    'سلسلة محلات الدلتا ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: KprimaryColor),
+                  ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 MaterialButton(
-                  onPressed: () {},
+                  elevation: 0,
                   color: KprimaryColor.withOpacity(.1),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  onPressed: () {},
                   child: Text(
                     'تابع',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: KprimaryColor),
+                      color: KprimaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                )
+                ),
+                SizedBox(
+                  width: 20,
+                ),
               ],
             ),
             SizedBox(
               height: 40,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                4,
-                (index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 15,
-                            ),
-                            child: Icon(
-                              FontAwesomeIcons.archway,
-                              color: KprimaryColor,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'ابلاغ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Expanded(
+                child: btn(
+                  title: 'ابلاغ',
+                  icon: Icon(FontAwesomeIcons.clock ,color: KprimaryColor,)
+                ),
               ),
-            ),
+              Expanded(
+                child: btn(
+                  title: 'شات',
+                    icon: Icon(FontAwesomeIcons.chalkboardTeacher,color: KprimaryColor,)
+                ),
+              ),
+              Expanded(
+                child: btn(
+                  title: 'مسابقات',
+                    icon: Icon(FontAwesomeIcons.wind,color: KprimaryColor,)
+                ),
+              ),
+              Expanded(
+                child: btn(
+                  title: 'خصومات',
+                    icon: Icon(FontAwesomeIcons.powerOff,color: KprimaryColor,)
+                ),
+              ),
+              Expanded(
+                child: btn(
+                  title: 'كوبون',
+                    icon: Icon(FontAwesomeIcons.discord,color: KprimaryColor,)
+                ),
+              ),
+            ]),
             SizedBox(
               height: 40,
             ),
@@ -148,7 +126,7 @@ class TraderView extends GetView<TraderController> {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(25),
+                        padding: const EdgeInsets.all(18),
                         child: Center(
                           child: Text(
                             'السلع',
@@ -161,6 +139,7 @@ class TraderView extends GetView<TraderController> {
                       ),
                     ),
                   ),
+         
                   Expanded(
                     child: Center(
                       child: Text(
@@ -174,7 +153,7 @@ class TraderView extends GetView<TraderController> {
                   ),
                 ],
               ),
-            ),
+            ),         SizedBox(height: 20,),
             GridView.count(
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 3,
@@ -187,8 +166,20 @@ class TraderView extends GetView<TraderController> {
                 ),
               ),
             ),
+                     GridView.count(
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 3,
+              shrinkWrap: true,
+              children: List.generate(
+                productImage.length,
+                (index) => boxTitle(
+                  image: productImage.elementAt(index),
+                  title: 'الازياء',
+                ),
+              ),
+            ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
           ],
         ),
@@ -196,3 +187,46 @@ class TraderView extends GetView<TraderController> {
     );
   }
 }
+
+Widget btn({
+  @required String title,
+  @required Icon icon,
+  Function onclick,
+}) =>
+    InkWell(
+      onTap: onclick,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(0),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 15,
+              ),
+              child: icon,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+          )
+        ],
+      ),
+    );

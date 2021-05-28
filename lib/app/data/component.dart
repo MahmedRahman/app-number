@@ -124,88 +124,194 @@ Widget boxCircle({
 Widget boxTitle({
   @required String image,
   @required String title,
+  Function onclick,
 }) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: 8,
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-          ),
-          border: Border.all(
-            width: 2,
-            color: Colors.grey,
-          ),
+    InkWell(
+      onTap: onclick,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8,
+          vertical: 8,
         ),
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      //bottomRight: Radius.circular(18),
-                      topLeft: Radius.circular(18),
-                    ),
-                    //borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Image.asset(
-                    image,
-                    fit: BoxFit.fill,
-                  )),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(20),
+              topLeft: Radius.circular(20),
             ),
-            Divider(
-              height: 2,
-              thickness: 2,
+            border: Border.all(
+              width: 2,
               color: Colors.grey,
             ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: KprimaryColor,
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        //bottomRight: Radius.circular(18),
+                        topLeft: Radius.circular(18),
+                      ),
+                      //borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Image.asset(
+                      image,
+                      fit: BoxFit.fill,
+                    )),
+              ),
+              Divider(
+                height: 2,
+                thickness: 2,
+                color: Colors.grey,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: KprimaryColor,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
 
-Widget productBox({@required String image}) => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Container(
-        width: 180,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
+Widget productBox({
+  @required String image,
+  Function onClick,
+}) =>
+    InkWell(
+      onTap: onClick,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          width: 180,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            border: Border.all(
+              width: 1,
+              color: Colors.grey,
+            ),
           ),
-          border: Border.all(
-            width: 1,
-            color: Colors.grey,
-          ),
-        ),
-        child: Stack(
-          alignment: Alignment.topLeft,
-          children: [
-            Column(
-              children: [
-                Container(
-                  height: 150,
-                  width: double.infinity,
+          child: Stack(
+            alignment: Alignment.topLeft,
+            children: [
+              Column(
+                children: [
+                  Container(
+                    height: 150,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: Image.asset(
+                      image,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'تيشيرت ابيض',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        '230',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: KprimaryColor,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        'جنيه',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: KprimaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'التاجر',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Image.asset(
+                        'images/brand_00.png',
+                        width: 32,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MaterialButton(
+                    elevation: 0,
+                    color: KprimaryColor.withOpacity(.2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'اضف الى السلة',
+                      style: TextStyle(
+                        color: KprimaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -213,111 +319,16 @@ Widget productBox({@required String image}) => Padding(
                       bottomRight: Radius.circular(20),
                     ),
                   ),
-                  child: Image.asset(
-                    image,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'تيشيرت ابيض',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      '230',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.favorite,
                         color: KprimaryColor,
                       ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'جنيه',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: KprimaryColor,
-                      ),
-                    ),
-                  ],
+                      onPressed: () {}),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'التاجر',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Image.asset(
-                      'images/brand_00.png',
-                      width: 32,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                MaterialButton(
-                  elevation: 0,
-                  color: KprimaryColor.withOpacity(.2),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'اضف الى السلة',
-                    style: TextStyle(
-                      color: KprimaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                ),
-                child: IconButton(
-                    icon: Icon(
-                      Icons.favorite,
-                      color: KprimaryColor,
-                    ),
-                    onPressed: () {}),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
