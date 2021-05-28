@@ -11,6 +11,8 @@ abstract class Routes {
   static const TRADER = _Paths.TRADER;
   static const NOTIFACTION = _Paths.NOTIFACTION;
   static const FAVOURITE = _Paths.FAVOURITE;
+  static const SHOPSTATUS = _Paths.SHOPSTATUS;
+  static const DEPARTMENT_DETAIL = _Paths.DEPARTMENT_DETAIL;
 }
 
 abstract class _Paths {
@@ -23,4 +25,6 @@ abstract class _Paths {
   static const TRADER = '/trader';
   static const NOTIFACTION = '/notifaction';
   static const FAVOURITE = '/favourite';
+  static const SHOPSTATUS = '/shopstatus';
+  static const DEPARTMENT_DETAIL = '/detail';
 }

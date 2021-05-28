@@ -1,5 +1,7 @@
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/data/component.dart';
+import 'package:app_number/app/data/data.dart';
+import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,24 +12,6 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  List<String> imageList = [
-    'images/brand_00.png',
-    'images/brand_01.png',
-    'images/brand_02.png',
-    'images/brand_03.png',
-    'images/brand_02.png',
-    'images/brand_03.png',
-  ];
-
-  List<String> productImage = [
-    'images/product_01.png',
-    'images/product_02.png',
-    'images/product_03.png',
-    'images/product_04.png',
-    'images/product_05.png',
-    'images/product_05.png',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +46,10 @@ class HomeView extends GetView<HomeController> {
               children: List.generate(
                 imageList.length,
                 (index) => box(
-                  image: imageList.elementAt(index),
-                ),
+                    image: imageList.elementAt(index),
+                    onclick: () {
+                      Get.toNamed(Routes.TRADER);
+                    }),
               ),
             ),
           ),
@@ -90,8 +76,10 @@ class HomeView extends GetView<HomeController> {
                 (index) => Column(
                   children: [
                     boxCircle(
-                      image: imageList.elementAt(index),
-                    ),
+                        image: imageList.elementAt(index),
+                        onclick: () {
+                          Get.toNamed(Routes.SHOPSTATUS);
+                        }),
                     SizedBox(
                       width: 5,
                     ),
@@ -136,10 +124,7 @@ class HomeView extends GetView<HomeController> {
           SizedBox(
             height: 10,
           ),
-          defualtTitle(
-            title: 'اقسام فرعية',
-            textButtontitle: 'عرض الكل'
-          ),
+          defualtTitle(title: 'اقسام فرعية', textButtontitle: 'عرض الكل'),
           SizedBox(
             height: 10,
           ),

@@ -266,7 +266,10 @@ class LayoutView extends GetView<LayoutController> {
               ),
             ),
             sliderMain: Scaffold(
-              appBar: PreferredSize(
+              appBar:
+              
+              
+               PreferredSize(
                 preferredSize: Size.fromHeight(70),
                 child: Container(
                   height: 70,
@@ -339,6 +342,8 @@ class LayoutView extends GetView<LayoutController> {
                   ),
                 ),
               ),
+              
+              
               body: screen[selectScreen.value],
               bottomNavigationBar: CurvedNavigationBar(
                 backgroundColor: KsecondaryColor,

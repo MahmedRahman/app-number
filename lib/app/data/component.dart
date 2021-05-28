@@ -1,11 +1,14 @@
 import 'package:app_number/app/data/app_const.dart';
+import 'package:app_number/app/modules/notifaction/views/notifaction_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 Widget defualtTitle({
   @required String title,
-  String textButtontitle='',
+  String textButtontitle = '',
 }) =>
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -18,7 +21,6 @@ Widget defualtTitle({
                 gradient: LinearGradient(
                   colors: [
                     Color(0xffAE1D6D),
-                   
                     Color(0xffCC1569),
                   ],
                 ),
@@ -44,7 +46,6 @@ Widget defualtTitle({
               textDirection: TextDirection.ltr,
               child: TextButton(
                 onPressed: () {},
-            
                 child: Text(
                   textButtontitle,
                   style: TextStyle(
@@ -59,8 +60,12 @@ Widget defualtTitle({
       ),
     );
 
-Widget box({@required String image}) => Padding(
-      padding: const EdgeInsets.all(8.0),
+Widget box({
+  @required String image,
+  Function onclick,
+}) =>
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -73,31 +78,45 @@ Widget box({@required String image}) => Padding(
             color: KprimaryColor,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Container(
-            width: 60,
-            height: 60,
-            child: Image.asset(
-              image,
+        child: MaterialButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          splashColor: KprimaryColor.withOpacity(.5),
+          color: Colors.white,
+          onPressed: onclick,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Container(
+              width: 60,
+              height: 60,
+              child: Image.asset(
+                image,
+              ),
             ),
           ),
         ),
       ),
     );
 
-Widget boxCircle({@required String image}) => Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-          border: Border.all(color: KprimaryColor, width: 2),
-        ),
-        child: Image.asset(
-          image,
-          width: 80,
-          height: 80,
+Widget boxCircle({
+  @required String image,
+  Function onclick,
+}) =>
+    InkWell(
+      onTap: onclick,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            border: Border.all(color: KprimaryColor, width: 2),
+          ),
+          child: Image.asset(
+            image,
+            width: 80,
+            height: 80,
+          ),
         ),
       ),
     );
@@ -251,7 +270,10 @@ Widget productBox({@required String image}) => Padding(
                     SizedBox(
                       width: 5,
                     ),
-             Image.asset('images/brand_00.png',width: 32,)
+                    Image.asset(
+                      'images/brand_00.png',
+                      width: 32,
+                    )
                   ],
                 ),
                 SizedBox(
@@ -295,6 +317,83 @@ Widget productBox({@required String image}) => Padding(
                     onPressed: () {}),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+
+Widget customAppBar({Function onMenuClick}) => PreferredSize(
+      preferredSize: Size.fromHeight(90),
+      child: Container(
+        height: 90,
+        decoration: BoxDecoration(
+          color: KprimaryColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30),
+          ),
+        ),
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          overflow: Overflow.visible,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: SvgPicture.asset('images/notifaction.svg'),
+                    onPressed: () {
+                      Get.to(
+                        NotifactionView(),
+                        fullscreenDialog: true,
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset('images/notifaction.svg'),
+                    onPressed: () {
+                      Get.to(
+                        NotifactionView(),
+                        fullscreenDialog: true,
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: -30,
+              child: Container(
+                width: Get.width * .7,
+                height: 60,
+                color: Colors.transparent,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(50),
+                      ),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: SvgPicture.asset(
+                        'images/preferences_icon.svg',
+                      ),
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: SvgPicture.asset(
+                        'images/serech_icon.svg',
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
