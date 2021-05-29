@@ -79,8 +79,9 @@ Widget box({
           ),
         ),
         child: MaterialButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           splashColor: KprimaryColor.withOpacity(.5),
           color: Colors.white,
           onPressed: onclick,

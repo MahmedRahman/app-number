@@ -93,13 +93,25 @@ class ShopstatusView extends GetView<ShopstatusController> {
              ),
           
               Expanded(
-                child: Container(
-                  width: double.infinity,
-                  color: Colors.red,
-                  child: Image.asset(
-                    'images/bg_image.png',
-                    fit: BoxFit.cover,
-                  ),
+                child: PageView(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      color: Colors.red,
+                      child: Image.asset(
+                        'images/bg_image.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                         Container(
+                      width: double.infinity,
+                      color: Colors.red,
+                      child: Image.asset(
+                        'images/bg_image.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
               ),
              

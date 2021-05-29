@@ -13,6 +13,8 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  var select_index = 0.obs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,61 +133,105 @@ class HomeView extends GetView<HomeController> {
           SizedBox(
             height: 10,
           ),
-          Container(
-            color: Colors.white,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 25),
-                    child: Center(
-                      child: Text(
-                        'نساء',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: KprimaryColor,
+          Obx(() {
+            return Container(
+              color: Colors.white,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        select_index.value = 0;
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: select_index.value == 0
+                              ? KprimaryColor.withOpacity(.5)
+                              : Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: KprimaryColor.withOpacity(.5),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(25),
-                      child: Center(
-                        child: Text(
-                          'رجال',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: KprimaryColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(25),
+                          child: Center(
+                            child: Text(
+                              'نساء',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: KprimaryColor,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      'اطفال',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: KprimaryColor,
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        select_index.value = 1;
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: select_index.value == 1
+                              ? KprimaryColor.withOpacity(.5)
+                              : Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(25),
+                          child: Center(
+                            child: Text(
+                              'رجال',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: KprimaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        select_index.value = 2;
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: select_index.value == 2
+                              ? KprimaryColor.withOpacity(.5)
+                              : Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(25),
+                          child: Center(
+                            child: Text(
+                              'أطفال',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: KprimaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
 
           SizedBox(
             height: 10,
@@ -198,9 +244,11 @@ class HomeView extends GetView<HomeController> {
             children: List.generate(
               productImage.length,
               (index) => boxTitle(
-                image: productImage.elementAt(index),
-                title: 'الازياء',
-              ),
+                  image: productImage.elementAt(index),
+                  title: 'الازياء',
+                  onclick: () {
+                    Get.toNamed(Routes.PRODUCT);
+                  }),
             ),
           ),
 

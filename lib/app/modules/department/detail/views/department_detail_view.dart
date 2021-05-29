@@ -78,7 +78,7 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
                 title: 'تجار القسم',
               ),
 
-////////////
+
 
               SizedBox(
                 height: 20,
