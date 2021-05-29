@@ -99,167 +99,165 @@ class LayoutView extends GetView<LayoutController> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        children: [
-                          ListTile(
-                            onTap: () {},
-                            focusColor: Colors.white,
-                            hoverColor: Colors.red,
-                            dense: true,
-                            leading: Icon(
-                              Icons.home,
+                  Container(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          onTap: () {},
+                          focusColor: Colors.white,
+                          hoverColor: Colors.red,
+                          dense: true,
+                          leading: Icon(
+                            Icons.home,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          title: Text(
+                            'الـرئيسية',
+                            style: TextStyle(
                               color: Colors.white,
-                              size: 25,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
                             ),
-                            title: Text(
-                              'الـرئيسية',
-                              style: TextStyle(
+                          ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.userAlt,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          title: Text(
+                            'الصفحة الشخصية',
+                            style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                              ),
-                            ),
+                                fontSize: 14),
                           ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.userAlt,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'الصفحة الشخصية',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
-                            ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.solidHeart,
+                            color: Colors.white,
+                            size: 25,
                           ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.solidHeart,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'المفضلة',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
-                            ),
-                          ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.shoppingCart,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'سلة المشتريات',
-                              style: TextStyle(
+                          title: Text(
+                            'المفضلة',
+                            style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                              ),
-                            ),
+                                fontSize: 14),
                           ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.shoppingBag,
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.shoppingCart,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          title: Text(
+                            'سلة المشتريات',
+                            style: TextStyle(
                               color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'طلباتى',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
                             ),
                           ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.skyatlas,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'الاعدادات',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
-                            ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.shoppingBag,
+                            color: Colors.white,
+                            size: 25,
                           ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.phoneSquareAlt,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'تواصل معانا',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
-                            ),
+                          title: Text(
+                            'طلباتى',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14),
                           ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.solidQuestionCircle,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'من نحن',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
-                            ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.skyatlas,
+                            color: Colors.white,
+                            size: 25,
                           ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.infoCircle,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'سياسة ارجاع السلع',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
-                            ),
+                          title: Text(
+                            'الاعدادات',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14),
                           ),
-                          ListTile(
-                            dense: true,
-                            leading: Icon(
-                              FontAwesomeIcons.signOutAlt,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            title: Text(
-                              'تسجيل الخروج',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
-                            ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.phoneSquareAlt,
+                            color: Colors.white,
+                            size: 25,
                           ),
-                        ],
-                      ),
+                          title: Text(
+                            'تواصل معانا',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14),
+                          ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.solidQuestionCircle,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          title: Text(
+                            'من نحن',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14),
+                          ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.infoCircle,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          title: Text(
+                            'سياسة ارجاع السلع',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14),
+                          ),
+                        ),
+                        ListTile(
+                          dense: true,
+                          leading: Icon(
+                            FontAwesomeIcons.signOutAlt,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          title: Text(
+                            'تسجيل الخروج',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14),
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],
