@@ -209,7 +209,7 @@ class TraderView extends GetView<TraderController> {
                                     image: productImage.elementAt(index),
                                     title: 'الازياء',
                                     onclick: () {
-                                      Get.toNamed(Routes.PRODUCT);
+                                      Get.toNamed(Routes.DEPARTMENT_SUB);
                                     },
                                   ),
                                 ),
