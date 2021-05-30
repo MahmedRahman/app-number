@@ -34,7 +34,7 @@ import 'package:app_number/app/modules/trader/views/trader_view.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const INITIAL = Routes.LAYOUT;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
