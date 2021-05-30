@@ -121,17 +121,17 @@ class HomeView extends GetView<HomeController> {
                   image: productImage.elementAt(index),
                   title: 'الازياء',
                   onclick: () {
-                    Get.to(DepartmentDetailView(), fullscreenDialog: true);
+                    Get.toNamed(Routes.DEPARTMENT_DETAIL);
                   }),
             ),
           ),
 
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           defualtTitle(title: 'اقسام فرعية', textButtontitle: 'عرض الكل'),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Obx(() {
             return Container(
@@ -245,9 +245,9 @@ class HomeView extends GetView<HomeController> {
               productImage.length,
               (index) => boxTitle(
                   image: productImage.elementAt(index),
-                  title: 'الازياء',
+                  title: 'جواكت',
                   onclick: () {
-                    Get.toNamed(Routes.PRODUCT);
+                    Get.toNamed(Routes.DEPARTMENT_SUB);
                   }),
             ),
           ),

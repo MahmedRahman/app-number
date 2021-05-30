@@ -1,20 +1,16 @@
-import 'package:app_number/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
-class SplashController extends GetxController {
-  //TODO: Implement SplashController
+class QuizController extends GetxController {
+  //TODO: Implement QuizController
 
   final count = 0.obs;
   @override
   void onInit() {
-
-
     super.onInit();
   }
 
   @override
   void onReady() {
-
     super.onReady();
   }
 

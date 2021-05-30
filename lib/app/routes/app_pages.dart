@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:app_number/app/modules/Discount/bindings/discount_binding.dart';
+import 'package:app_number/app/modules/Discount/views/discount_view.dart';
 import 'package:app_number/app/modules/acount/bindings/acount_binding.dart';
 import 'package:app_number/app/modules/acount/views/acount_view.dart';
 import 'package:app_number/app/modules/checkout/bindings/checkout_binding.dart';
@@ -8,6 +10,8 @@ import 'package:app_number/app/modules/department/bindings/department_binding.da
 import 'package:app_number/app/modules/department/detail/bindings/department_detail_binding.dart';
 import 'package:app_number/app/modules/department/detail/views/department_detail_view.dart';
 import 'package:app_number/app/modules/department/views/department_view.dart';
+import 'package:app_number/app/modules/department_sub/bindings/department_sub_binding.dart';
+import 'package:app_number/app/modules/department_sub/views/department_sub_view.dart';
 import 'package:app_number/app/modules/favourite/bindings/favourite_binding.dart';
 import 'package:app_number/app/modules/favourite/views/favourite_view.dart';
 import 'package:app_number/app/modules/home/bindings/home_binding.dart';
@@ -18,6 +22,8 @@ import 'package:app_number/app/modules/notifaction/bindings/notifaction_binding.
 import 'package:app_number/app/modules/notifaction/views/notifaction_view.dart';
 import 'package:app_number/app/modules/product/bindings/product_binding.dart';
 import 'package:app_number/app/modules/product/views/product_view.dart';
+import 'package:app_number/app/modules/quiz/bindings/quiz_binding.dart';
+import 'package:app_number/app/modules/quiz/views/quiz_view.dart';
 import 'package:app_number/app/modules/shopstatus/bindings/shopstatus_binding.dart';
 import 'package:app_number/app/modules/shopstatus/views/shopstatus_view.dart';
 import 'package:app_number/app/modules/splash/bindings/splash_binding.dart';
@@ -91,6 +97,21 @@ class AppPages {
       name: _Paths.PRODUCT,
       page: () => ProductView(),
       binding: ProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUIZ,
+      page: () => QuizView(),
+      binding: QuizBinding(),
+    ),
+    GetPage(
+      name: _Paths.DISCOUNT,
+      page: () => DiscountView(),
+      binding: DiscountBinding(),
+    ),
+    GetPage(
+      name: _Paths.DEPARTMENT_SUB,
+      page: () => DepartmentSubView(),
+      binding: DepartmentSubBinding(),
     ),
   ];
 }

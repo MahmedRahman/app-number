@@ -3,6 +3,7 @@ import 'package:app_number/app/data/component.dart';
 import 'package:app_number/app/data/data.dart';
 import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
@@ -83,194 +84,193 @@ class TraderView extends GetView<TraderController> {
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Expanded(
                 child: btn(
-                    title: 'ابلاغ',
-                    icon: Icon(
-                      FontAwesomeIcons.clock,
-                      color: KprimaryColor,
-                    )),
+                  title: 'ابلاغ',
+                  icon: SvgPicture.asset('images/icion_1.svg'),
+                ),
               ),
               Expanded(
                 child: btn(
-                    title: 'شات',
-                    icon: Icon(
-                      FontAwesomeIcons.chalkboardTeacher,
-                      color: KprimaryColor,
-                    )),
+                  title: 'شات',
+                  icon: SvgPicture.asset('images/icion_2.svg'),
+                ),
               ),
               Expanded(
                 child: btn(
-                    title: 'مسابقات',
-                    icon: Icon(
-                      FontAwesomeIcons.wind,
-                      color: KprimaryColor,
-                    )),
+                  title: 'مسابقات',
+                  icon: SvgPicture.asset('images/icion_3.svg'),
+                  onclick: () {
+                    Get.toNamed(Routes.QUIZ);
+                  },
+                ),
               ),
               Expanded(
                 child: btn(
-                    title: 'خصومات',
-                    icon: Icon(
-                      FontAwesomeIcons.powerOff,
-                      color: KprimaryColor,
-                    )),
+                  title: 'خصومات',
+                  icon: SvgPicture.asset('images/icion_4.svg'),
+                  onclick: () {
+                    Get.toNamed(Routes.DISCOUNT);
+                  },
+                ),
               ),
               Expanded(
                 child: btn(
-                    title: 'كوبون',
-                    icon: Icon(
-                      FontAwesomeIcons.discord,
-                      color: KprimaryColor,
-                    )),
+                  title: 'كوبون',
+                  icon: SvgPicture.asset('images/icion_5.svg'),
+                ),
               ),
             ]),
             SizedBox(
               height: 40,
             ),
-            Obx(() {
-              return Column(
-                children: [
-                  Container(
-                    color: Colors.white,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              sel_flg.value = false;
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: sel_flg.value
-                                    ? Colors.white
-                                    : KprimaryColor.withOpacity(.5),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
+            Obx(
+              () {
+                return Column(
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                sel_flg.value = false;
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: sel_flg.value
+                                      ? Colors.white
+                                      : KprimaryColor.withOpacity(.5),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomRight: Radius.circular(20),
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(18),
-                                child: Center(
-                                  child: Text(
-                                    'السلع',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: KprimaryColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(18),
+                                  child: Center(
+                                    child: Text(
+                                      'السلع',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: KprimaryColor,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              sel_flg.value = true;
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: sel_flg.value
-                                    ? KprimaryColor.withOpacity(.5)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                sel_flg.value = true;
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: sel_flg.value
+                                      ? KprimaryColor.withOpacity(.5)
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomRight: Radius.circular(20),
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(18),
-                                child: Center(
-                                  child: Text(
-                                    'موجز',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: KprimaryColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(18),
+                                  child: Center(
+                                    child: Text(
+                                      'موجز',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: KprimaryColor,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  sel_flg.value == false
-                      ? Column(
-                          children: [
-                            GridView.count(
-                              physics: NeverScrollableScrollPhysics(),
-                              crossAxisCount: 3,
-                              shrinkWrap: true,
-                              children: List.generate(
-                                productImage.length,
-                                (index) => boxTitle(
-                                  image: productImage.elementAt(index),
-                                  title: 'الازياء',
-                                  onclick: (){
-                                    Get.toNamed(Routes.PRODUCT);
-                                  }
+                    SizedBox(
+                      height: 20,
+                    ),
+                    sel_flg.value == false
+                        ? Column(
+                            children: [
+                              GridView.count(
+                                physics: NeverScrollableScrollPhysics(),
+                                crossAxisCount: 3,
+                                shrinkWrap: true,
+                                children: List.generate(
+                                  productImage.length,
+                                  (index) => boxTitle(
+                                    image: productImage.elementAt(index),
+                                    title: 'الازياء',
+                                    onclick: () {
+                                      Get.toNamed(Routes.PRODUCT);
+                                    },
+                                  ),
                                 ),
                               ),
-                            ),
-                            GridView.count(
-                              physics: NeverScrollableScrollPhysics(),
-                              crossAxisCount: 3,
-                              shrinkWrap: true,
-                              children: List.generate(
-                                productImage.length,
-                                (index) => boxTitle(
-                                  image: productImage.elementAt(index),
-                                  title: 'الازياء',
+                              GridView.count(
+                                physics: NeverScrollableScrollPhysics(),
+                                crossAxisCount: 3,
+                                shrinkWrap: true,
+                                children: List.generate(
+                                  productImage.length,
+                                  (index) => boxTitle(
+                                    image: productImage.elementAt(index),
+                                    title: 'الازياء',
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )
-                      : GridView.count(
-                          physics: NeverScrollableScrollPhysics(),
-                          crossAxisCount: 2,
-                          shrinkWrap: true,
-                          children: List.generate(
+                            ],
+                          )
+                        : GridView.count(
+                            physics: NeverScrollableScrollPhysics(),
+                            crossAxisCount: 2,
+                            shrinkWrap: true,
+                            children: List.generate(
                               productImage.length,
                               (index) => Padding(
                                 padding: const EdgeInsets.all(15),
-                                
                                 child: Stack(
                                   alignment: Alignment.topLeft,
                                   fit: StackFit.expand,
                                   children: [
-                                   
                                     Container(
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           width: 1,
-                                          color: Colors.grey
-                                        )
-                                      ),
-                                          child: Image.asset(
-                                            productImage.elementAt(index),
-                                            fit: BoxFit.cover,
-                                          ),
+                                          color: Colors.grey,
                                         ),
-                                  
-                                   SizedBox(
-                                     width: 64,
-                                     child: Padding(
-                                       padding: const EdgeInsets.all(8.0),
-                                       child: Icon(FontAwesomeIcons.image,color: Colors.white,),
-                                     ),
-                                   ),
+                                      ),
+                                      child: Image.asset(
+                                        productImage.elementAt(index),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 64,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          FontAwesomeIcons.image,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
-                              )),
-                        ),
-                ],
-              );
-            }),
+                              ),
+                            ),
+                          ),
+                  ],
+                );
+              },
+            ),
             SizedBox(
               height: 20,
             ),
@@ -283,7 +283,7 @@ class TraderView extends GetView<TraderController> {
 
 Widget btn({
   @required String title,
-  @required Icon icon,
+  @required Widget icon,
   Function onclick,
 }) =>
     InkWell(
@@ -318,7 +318,10 @@ Widget btn({
           ),
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 10,
+            ),
           )
         ],
       ),

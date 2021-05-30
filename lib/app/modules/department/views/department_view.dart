@@ -1,4 +1,5 @@
 import 'package:app_number/app/data/component.dart';
+import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -53,6 +54,9 @@ class DepartmentView extends GetView<DepartmentController> {
                 (index) => boxTitle(
                   image: productImage.elementAt(index),
                   title: 'الازياء',
+                  onclick: (){
+                    Get.toNamed(Routes.DEPARTMENT_DETAIL);
+                  }
                 ),
               ),
             ),

@@ -9,6 +9,8 @@ import '../controllers/shopstatus_controller.dart';
 class ShopstatusView extends GetView<ShopstatusController> {
   @override
   Widget build(BuildContext context) {
+ 
+ 
     return Scaffold(
       backgroundColor: KprimaryColor,
       body: 
@@ -38,6 +40,9 @@ class ShopstatusView extends GetView<ShopstatusController> {
               SizedBox(
                     height: 20,
                   ),
+
+
+                  
               Row(
                 children: [
                   SizedBox(
@@ -84,6 +89,9 @@ class ShopstatusView extends GetView<ShopstatusController> {
                   ),
                 ],
               ),
+              
+              
+              
                SizedBox(
                     height: 20,
                   ),
@@ -123,5 +131,7 @@ class ShopstatusView extends GetView<ShopstatusController> {
    
    
     );
+ 
+ 
   }
 }

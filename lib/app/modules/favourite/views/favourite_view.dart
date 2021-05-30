@@ -169,4 +169,8 @@ class FavouriteView extends GetView<FavouriteController> {
           ),
         ),
       );
+
+
+
+
 }
