@@ -72,8 +72,37 @@ class DiscountView extends GetView<DiscountController> {
             child: Row(
               children: List.generate(
                 imageList.length,
-                (index) =>
-                    box(image: imageList.elementAt(index), onclick: () {}),
+                (index) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: index == 1 ? KprimaryColor : Colors.white
+                      )
+                    ),
+                    child: Column(
+                      children: [
+                        Image.asset('images/product_01.png'),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'احذية و حقائب',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: KprimaryColor,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -181,13 +210,16 @@ class DiscountView extends GetView<DiscountController> {
           cardItem(),
           SizedBox(
             height: 10,
-          ),     cardItem(),
+          ),
+          cardItem(),
           SizedBox(
             height: 10,
-          ),     cardItem(),
+          ),
+          cardItem(),
           SizedBox(
             height: 10,
-          ),     cardItem(),
+          ),
+          cardItem(),
           SizedBox(
             height: 10,
           ),
@@ -245,7 +277,7 @@ class DiscountView extends GetView<DiscountController> {
                           style: TextStyle(fontSize: 14),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: 10,
                         ),
                         Text(
                           '230 جنية',
@@ -254,17 +286,9 @@ class DiscountView extends GetView<DiscountController> {
                               color: KprimaryColor),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: 15,
                         ),
-                        Row(
-                          children: [
-                            Text('التاجر : '),
-                            Image.asset(
-                              'images/brand_00.png',
-                              width: 32,
-                            )
-                          ],
-                        ),
+                      
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: MaterialButton(

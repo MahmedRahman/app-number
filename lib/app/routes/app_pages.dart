@@ -6,6 +6,8 @@ import 'package:app_number/app/modules/acount/bindings/acount_binding.dart';
 import 'package:app_number/app/modules/acount/views/acount_view.dart';
 import 'package:app_number/app/modules/checkout/bindings/checkout_binding.dart';
 import 'package:app_number/app/modules/checkout/views/checkout_view.dart';
+import 'package:app_number/app/modules/coupon/bindings/coupon_binding.dart';
+import 'package:app_number/app/modules/coupon/views/coupon_view.dart';
 import 'package:app_number/app/modules/department/bindings/department_binding.dart';
 import 'package:app_number/app/modules/department/detail/bindings/department_detail_binding.dart';
 import 'package:app_number/app/modules/department/detail/views/department_detail_view.dart';
@@ -34,7 +36,7 @@ import 'package:app_number/app/modules/trader/views/trader_view.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.LAYOUT;
 
   static final routes = [
     GetPage(
@@ -112,6 +114,11 @@ class AppPages {
       name: _Paths.DEPARTMENT_SUB,
       page: () => DepartmentSubView(),
       binding: DepartmentSubBinding(),
+    ),
+    GetPage(
+      name: _Paths.COUPON,
+      page: () => CouponView(),
+      binding: CouponBinding(),
     ),
   ];
 }

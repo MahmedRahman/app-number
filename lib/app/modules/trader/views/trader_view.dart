@@ -116,6 +116,9 @@ class TraderView extends GetView<TraderController> {
                 child: btn(
                   title: 'كوبون',
                   icon: SvgPicture.asset('images/icion_5.svg'),
+                  onclick: (){
+                       Get.toNamed(Routes.COUPON);
+                  }
                 ),
               ),
             ]),

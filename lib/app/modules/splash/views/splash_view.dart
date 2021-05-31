@@ -9,10 +9,11 @@ import '../controllers/splash_controller.dart';
 class SplashView extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
+    /*
     Future.delayed(Duration(seconds: 1), () {
       print('object');
       Get.toNamed(Routes.LAYOUT);
-    });
+    });*/
     return Scaffold(
       body: Container(
           width: double.infinity,

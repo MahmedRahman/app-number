@@ -17,6 +17,7 @@ abstract class Routes {
   static const QUIZ = _Paths.QUIZ;
   static const DISCOUNT = _Paths.DISCOUNT;
   static const DEPARTMENT_SUB = _Paths.DEPARTMENT_SUB;
+  static const COUPON = _Paths.COUPON;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const QUIZ = '/quiz';
   static const DISCOUNT = '/discount';
   static const DEPARTMENT_SUB = '/department-sub';
+  static const COUPON = '/coupon';
 }
