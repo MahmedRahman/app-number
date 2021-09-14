@@ -1,5 +1,7 @@
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/modules/favourite/views/favourite_view.dart';
+import 'package:app_number/app/routes/app_pages.dart';
+import 'package:app_number/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -65,7 +67,19 @@ class AcountView extends GetView<AcountController> {
             Card(
               child: ListTile(
                 onTap: () {
-                
+                  selectScreen.value = 0;
+                },
+                title: Text('الاقسام'),
+                leading: Icon(
+                  FontAwesomeIcons.building,
+                  color: KprimaryColor,
+                ),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                onTap: () {
+                  selectScreen.value = 1;
                 },
                 title: Text('المفضلة'),
                 leading: Icon(
@@ -74,10 +88,10 @@ class AcountView extends GetView<AcountController> {
                 ),
               ),
             ),
-                 Card(
+            Card(
               child: ListTile(
                 onTap: () {
-                
+                  selectScreen.value = 3;
                 },
                 title: Text('ٍسلة المشتريات'),
                 leading: Icon(
@@ -88,6 +102,9 @@ class AcountView extends GetView<AcountController> {
             ),
             Card(
               child: ListTile(
+                onTap: () {
+                  Get.toNamed(Routes.ORDER_BOOK);
+                },
                 title: Text('طلباتى'),
                 leading: Icon(
                   FontAwesomeIcons.shoppingBag,
@@ -97,7 +114,22 @@ class AcountView extends GetView<AcountController> {
             ),
             Card(
               child: ListTile(
-                title: Text('الاعدادات'),
+                onTap: () {
+                  Get.toNamed(Routes.ADDRESS_BOOK);
+                },
+                title: Text('العناوين'),
+                leading: Icon(
+                  FontAwesomeIcons.addressBook,
+                  color: KprimaryColor,
+                ),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                onTap: () {
+                  Get.toNamed(Routes.PROFILE);
+                },
+                title: Text('الملف الشخصى'),
                 leading: Icon(
                   Icons.settings,
                   color: KprimaryColor,
@@ -106,6 +138,11 @@ class AcountView extends GetView<AcountController> {
             ),
             Card(
               child: ListTile(
+                onTap: () {
+                  Get.find<UserAuth>().setUserToken(null);
+                  isLogin.value = false;
+                  selectScreen.value = 2;
+                },
                 title: Text('تسجيل الخروج'),
                 leading: Icon(
                   FontAwesomeIcons.signOutAlt,

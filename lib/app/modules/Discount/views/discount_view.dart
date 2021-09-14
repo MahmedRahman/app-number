@@ -1,3 +1,4 @@
+import 'package:app_number/app/data/CustomImageCached.dart';
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/data/component.dart';
 import 'package:app_number/app/data/data.dart';
@@ -9,64 +10,80 @@ import 'package:get/get.dart';
 import '../controllers/discount_controller.dart';
 
 class DiscountView extends GetView<DiscountController> {
+  var data;
   @override
   Widget build(BuildContext context) {
+    data = Get.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text('خصومات'),
         centerTitle: true,
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: new Border.all(
-                      color: KprimaryColor,
-                      width: 1.0,
-                    ),
-                  ),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      FontAwesomeIcons.shoppingBag,
-                      color: KprimaryColor,
-                    ),
-                    radius: 30,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Text(
-                    'سلسلة محلات الدلتا ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: KprimaryColor),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'منذ 12 س',
+      body: data.length == 0
+          ? Center(
+              child: Container(
+                child: Text(
+                  'لا يوجد خصومات',
                   style: TextStyle(
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
-                  width: 20,
+              ),
+            )
+          : ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: new Border.all(
+                            color: KprimaryColor,
+                            width: 1.0,
+                          ),
+                        ),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            FontAwesomeIcons.shoppingBag,
+                            color: KprimaryColor,
+                          ),
+                          radius: 30,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Text(
+                          'MMM',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: KprimaryColor),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'منذ 12 س',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
+                /*
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -78,11 +95,9 @@ class DiscountView extends GetView<DiscountController> {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: index == 1 ? KprimaryColor : Colors.white
-                      )
-                    ),
+                        color: Colors.white,
+                        border: Border.all(
+                            color: index == 1 ? KprimaryColor : Colors.white)),
                     child: Column(
                       children: [
                         Image.asset('images/product_01.png'),
@@ -105,7 +120,7 @@ class DiscountView extends GetView<DiscountController> {
                 ),
               ),
             ),
-          ),
+          ),*/ /*
           SizedBox(
             height: 20,
           ),
@@ -204,31 +219,28 @@ class DiscountView extends GetView<DiscountController> {
               ],
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          cardItem(),
-          SizedBox(
-            height: 10,
-          ),
-          cardItem(),
-          SizedBox(
-            height: 10,
-          ),
-          cardItem(),
-          SizedBox(
-            height: 10,
-          ),
-          cardItem(),
-          SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
+      */
+                Column(
+                  children: List.generate(
+                    data.length,
+                    (index) => cardItem(
+                      name: data[index]['name'],
+                      price: data[index]['price'].toString(),
+                      imageUrl: data[index]['cover'].toString(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 
-  Widget cardItem() => Padding(
+  Widget cardItem({
+    @required String name,
+    @required String price,
+    @required String imageUrl,
+  }) =>
+      Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Container(
           decoration: BoxDecoration(
@@ -254,7 +266,9 @@ class DiscountView extends GetView<DiscountController> {
                   ),
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Image.asset('images/product_04.png'),
+                    child: CustomImageCached(
+                      imageUrl: imageUrl,
+                    ),
                   ),
                 ),
               ),
@@ -273,14 +287,14 @@ class DiscountView extends GetView<DiscountController> {
                           height: 10,
                         ),
                         Text(
-                          'تيشيرات ابيض',
+                          name,
                           style: TextStyle(fontSize: 14),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          '230 جنية',
+                          '$price ريال',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: KprimaryColor),
@@ -288,7 +302,6 @@ class DiscountView extends GetView<DiscountController> {
                         SizedBox(
                           height: 15,
                         ),
-                      
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: MaterialButton(

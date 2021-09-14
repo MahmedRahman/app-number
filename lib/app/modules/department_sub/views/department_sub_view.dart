@@ -56,16 +56,7 @@ class DepartmentSubView extends GetView<DepartmentSubController> {
                     Get.toNamed(Routes.DISCOUNT);
                   },
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                bnt(
-                  image: 'images/subpedart04.png',
-                  title: 'مسابقات',
-                  onTap: () {
-                    Get.toNamed(Routes.QUIZ);
-                  },
-                ),
+             
                 SizedBox(
                   width: 10,
                 ),
@@ -149,7 +140,7 @@ class DepartmentSubView extends GetView<DepartmentSubController> {
                             height: 5,
                           ),
                           Text(
-                            '230 جنية',
+                            '230 ريال',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: KprimaryColor),
@@ -160,10 +151,7 @@ class DepartmentSubView extends GetView<DepartmentSubController> {
                           Row(
                             children: [
                               Text('التاجر : '),
-                              Image.asset(
-                                'images/brand_00.png',
-                                width: 32,
-                              )
+                              Text('data')
                             ],
                           ),
                           Padding(

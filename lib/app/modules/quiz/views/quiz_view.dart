@@ -1,3 +1,4 @@
+import 'package:app_number/app/data/CustomImageCached.dart';
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/data/component.dart';
 import 'package:flutter/material.dart';
@@ -8,55 +9,85 @@ import 'package:get/get.dart';
 import '../controllers/quiz_controller.dart';
 
 class QuizView extends GetView<QuizController> {
+  var data;
+
   @override
   Widget build(BuildContext context) {
+    data = Get.arguments;
+
+    print(data);
     return Scaffold(
       appBar: AppBar(
         title: Text('مسابقات'),
         centerTitle: true,
       ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            defualtTitle(title: 'مسابقات'),
-            SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: PageView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Container(
-                      width: double.infinity,
-                      color: Colors.red,
-                      child: Image.asset(
-                        'images/bg_image.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+      body: data.length == 0
+          ? Center(
+              child: Container(
+                child: Text(
+                  'لا يوجد مسابقات',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Container(
-                    width: double.infinity,
-                    color: Colors.red,
-                    child: Image.asset(
-                      'images/bg_image.png',
-                      fit: BoxFit.cover,
-                    ),
+                ),
+              ),
+            )
+          : Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  defualtTitle(title: 'مسابقات'),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: PageView(
+                        children: List.generate(
+                      data.length,
+                      (index) => data.length == 0
+                          ? Container(
+                              child: Text('لا يوجود مسابقات'),
+                            )
+                          : quizCard(data: data[index]),
+                    )),
+                  ),
+                  SizedBox(
+                    height: 25,
                   ),
                 ],
+              ),
+            ),
+    );
+  }
+
+  quizCard({@required data}) => Container(
+    
+    child: Column(
+          children: [
+       
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                color: Colors.black,
+                child: CustomImageCached(
+                  imageUrl: data['image'],
+                ),
               ),
             ),
             SizedBox(
               height: 25,
             ),
+            Text('سؤال المسابقة' , style: TextStyle(fontWeight: FontWeight.bold),),
+              SizedBox(
+              height: 10,
+            ),
             Text(
-              'ايه المختلف في الصورة ؟',
+              '${data['text']}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -65,9 +96,9 @@ class QuizView extends GetView<QuizController> {
               height: 25,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextFormField(
-                initialValue: 'https://www.flacon.com/search?word=coupon',
+                initialValue: data['prize'],
                 decoration: InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -77,16 +108,7 @@ class QuizView extends GetView<QuizController> {
             SizedBox(
               height: 25,
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('شارك'),
-            ),
-            SizedBox(
-              height: 25,
-            ),
           ],
         ),
-      ),
-    );
-  }
+  );
 }

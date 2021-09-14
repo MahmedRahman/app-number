@@ -1,3 +1,5 @@
+import 'package:app_number/app/data/CustomImageCached.dart';
+import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/data/component.dart';
 import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -7,28 +9,6 @@ import 'package:get/get.dart';
 import '../controllers/department_controller.dart';
 
 class DepartmentView extends GetView<DepartmentController> {
-  
-  List<String> productImage = [
-    'images/product_01.png',
-    'images/product_02.png',
-    'images/product_03.png',
-    'images/product_04.png',
-    'images/product_05.png',
-    'images/product_05.png',
-    'images/product_01.png',
-    'images/product_02.png',
-    'images/product_03.png',
-    'images/product_04.png',
-    'images/product_05.png',
-    'images/product_05.png',
-    'images/product_01.png',
-    'images/product_02.png',
-    'images/product_03.png',
-    'images/product_04.png',
-    'images/product_05.png',
-    'images/product_05.png',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,21 +25,36 @@ class DepartmentView extends GetView<DepartmentController> {
             SizedBox(
               height: 10,
             ),
-            GridView.count(
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 3,
-              shrinkWrap: true,
-              children: List.generate(
-                productImage.length,
-                (index) => boxTitle(
-                  image: productImage.elementAt(index),
-                  title: 'الازياء',
-                  onclick: (){
-                    Get.toNamed(Routes.DEPARTMENT_DETAIL);
+            FutureBuilder(
+                future: getCategories(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(snapshot.error);
                   }
-                ),
-              ),
-            ),
+
+                  return snapshot.hasData
+                      ? GridView.count(
+                          physics: NeverScrollableScrollPhysics(),
+                          crossAxisCount: 2,
+                          shrinkWrap: true,
+                          children: List.generate(
+                            snapshot.data.length,
+                            (index) => boxTitle(
+                              image: snapshot.data[index]['image'],
+                              title: snapshot.data[index]['name'],
+                              onclick: () {
+                                Get.toNamed(Routes.DEPARTMENT_DETAIL,
+                                    arguments: [
+                                      snapshot.data[index]['id'].toString()
+                                    ]);
+                              },
+                            ),
+                          ),
+                        )
+                      : Container(
+                          child: Center(child: CustomIndicator()),
+                        );
+                }),
           ],
         ),
       ),

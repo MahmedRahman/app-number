@@ -42,6 +42,7 @@ class CheckoutView extends GetView<CheckoutController> {
                 child: Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
+               // '$KcartToal',
                 'المجموع : 670 جنيه',
                 style: TextStyle(
                   color: KprimaryColor,
@@ -123,7 +124,7 @@ class CheckoutView extends GetView<CheckoutController> {
                     height: 10,
                   ),
                   Text(
-                    '230 جنية',
+                    '230 ريال',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: KprimaryColor),
                   ),
@@ -224,5 +225,4 @@ class CheckoutView extends GetView<CheckoutController> {
           ),
         ),
       );
-
 }

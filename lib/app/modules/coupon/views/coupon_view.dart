@@ -6,34 +6,51 @@ import 'package:get/get.dart';
 import '../controllers/coupon_controller.dart';
 
 class CouponView extends GetView<CouponController> {
+  var data;
   @override
   Widget build(BuildContext context) {
+    data = Get.arguments;
+
     return Scaffold(
       backgroundColor: KprimaryColor.withOpacity(.5),
       appBar: AppBar(
         title: Text('كوبونات'),
         centerTitle: true,
       ),
-      body: PageView(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [couponItem()],
-          ),
-             Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [couponItem()],
-          ),
-             Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [couponItem()],
-          ),
-        ],
-      ),
+      body: data.length == 0
+          ? Center(
+              child: Container(
+                child: Text(
+                  'لا يوجد كوبونات',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            )
+          : PageView(
+              children: List.generate(
+                data.length,
+                (index) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    couponItem(
+                      discount: data[index]['discount'].toString(),
+                      name: data[index]['name'].toString(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 
-  Widget couponItem() => Padding(
+  Widget couponItem({
+    @required String discount,
+    @required String name,
+  }) =>
+      Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Container(
           decoration: BoxDecoration(
@@ -66,7 +83,7 @@ class CouponView extends GetView<CouponController> {
                     height: 20,
                   ),
                   Text(
-                    'خصم 20%',
+                    'خصم ${discount}%',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -77,7 +94,7 @@ class CouponView extends GetView<CouponController> {
                     height: 20,
                   ),
                   Text(
-                    'Zp25ifl3d',
+                    '${name}',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   SizedBox(

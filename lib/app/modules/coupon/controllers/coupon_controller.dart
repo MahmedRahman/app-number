@@ -1,20 +1,49 @@
+import 'package:app_number/app/api/response_model.dart';
+import 'package:app_number/app/api/web_serives.dart';
+import 'package:app_number/app/data/app_const.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class CouponController extends GetxController {
-  //TODO: Implement CouponController
-
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+
+  getCouponsMerchant() async {
+    ResponsModel responsModel = await WebServices().getCouponsMerchant();
+    if (responsModel.success) {
+      Response response = responsModel.data;
+      return response.body['data'];
+    }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  addCouponsMerchant(
+      {@required name, @required discount, @required expireAt}) async {
+    ResponsModel responsModel = await WebServices().addCouponsMerchant(
+      name: name,
+      discount: discount,
+      expireAt: expireAt,
+    );
+
+    if (responsModel.success) {
+      Response response = responsModel.data;
+      if (response.body['status']) {
+        Get.snackbar(Appname, response.body['message']);
+      } else {
+        Get.snackbar(Appname, response.body['message']);
+      }
+    }
   }
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  deleteCouponsMerchant({@required couponsId}) async {
+    ResponsModel responsModel =
+        await WebServices().deleteCouponsMerchant(couponsId: couponsId);
+
+    if (responsModel.success) {
+      Response response = responsModel.data;
+      if (response.body['status']) {
+        Get.snackbar(Appname, response.body['message']);
+      } else {
+        Get.snackbar(Appname, response.body['message']);
+      }
+    }
+  }
 }

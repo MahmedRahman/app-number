@@ -37,7 +37,12 @@ dependencies:
   curved_navigation_bar: ^0.3.7
   flutter_slider_drawer: ^2.0.0
   cached_network_image: ^3.0.0
-
+  get_storage: ^2.0.1
+  fluttertoast: ^8.0.8
+  image_picker: 0.8.3+2
+  intl: ^0.17.0
+  lottie: ^1.1.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

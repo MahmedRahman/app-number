@@ -4,17 +4,19 @@ import 'package:app_number/app/data/data.dart';
 import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/department_detail_controller.dart';
 
 class DepartmentDetailView extends GetView<DepartmentDetailController> {
+  DepartmentDetailController controller = Get.put(DepartmentDetailController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('الاقسام - الازياء'),
+        title: Text('الاقسام'),
         centerTitle: true,
       ),
       body: ListView(
@@ -22,166 +24,186 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
           SizedBox(
             height: 20,
           ),
-
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                bnt(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: button(
                   image: 'images/depart01.svg',
                   title: 'جديد',
                   onTap: () {},
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                bnt(
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: button(
                   image: 'images/depart02.svg',
                   title: 'الأكثر ',
                   onTap: () {},
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                bnt(
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: button(
                   image: 'images/depart03.svg',
                   title: 'تصفيات',
-                  onTap: () {
-                    Get.toNamed(Routes.DISCOUNT);
-                  },
+                  onTap: () {},
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                bnt(
-                  image: 'images/depart04.svg',
-                  title: 'مسابقات',
-                  onTap: () {
-                    Get.toNamed(Routes.QUIZ);
-                  },
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+            ],
           ),
-
+          SizedBox(
+            height: 20,
+          ),
+          defualtTitle(
+            title: 'الاقسام الفرعية',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FutureBuilder(
+              future: controller.getCategorieProducts(
+                CategorieProductsid: Get.arguments[0],
+              ),
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? snapshot.data['subs'].length == 0
+                        ? Container(
+                            child: Text('لا اقسام فرعية'),
+                          )
+                        : SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: List.generate(
+                                snapshot.data['subs'].length,
+                                (index) => Column(
+                                  children: [
+                                    box(
+                                      image: snapshot.data['subs'][index]
+                                          ['image'],
+                                      title: snapshot.data['subs'][index]
+                                          ['name'],
+                                      onclick: () {
+                                        Get.offAndToNamed(
+                                          Routes.DEPARTMENT_DETAIL,
+                                          arguments: [
+                                            snapshot.data['subs'][index]['id']
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                    : Container(
+                        child: Text('جارى التحميل'),
+                      );
+              }),
           SizedBox(
             height: 20,
           ),
           defualtTitle(
             title: 'تجار القسم',
           ),
-
           SizedBox(
             height: 20,
           ),
-
-////////////
-
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: List.generate(
-                imageList.length,
-                (index) => box(
-                    image: imageList.elementAt(index),
-                    onclick: () {
-                      Get.toNamed(Routes.TRADER);
-                    }),
+          FutureBuilder(
+              future: controller.getCategorieProducts(
+                CategorieProductsid: Get.arguments[0],
               ),
-            ),
-          ),
-
-          /////////////
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? snapshot.data['merchants'].length == 0
+                        ? Container(
+                            child: Text('لا يوجد تجار'),
+                          )
+                        : SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: List.generate(
+                                snapshot.data['merchants'].length,
+                                (index) => Column(
+                                  children: [
+                                    box(
+                                      image: snapshot.data['merchants'][index]
+                                          ['logo'],
+                                      title: snapshot.data['merchants'][index]
+                                          ['name'],
+                                      onclick: () {
+                                        Get.toNamed(
+                                          Routes.TRADER,
+                                          arguments: [
+                                            snapshot.data['merchants'][index]
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                    : Container(
+                        child: Text('جارى التحميل'),
+                      );
+              }),
           SizedBox(
             height: 20,
           ),
-
-          Container(
-            color: Colors.white,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 25),
-                    child: Center(
-                      child: Text(
-                        'نساء',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: KprimaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: KprimaryColor.withOpacity(.5),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(25),
-                      child: Center(
-                        child: Text(
-                          'رجال',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: KprimaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      'اطفال',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: KprimaryColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          defualtTitle(
+            title: 'المنتجات',
           ),
-
           SizedBox(
             height: 20,
           ),
-
-          GridView.count(
-            physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 3,
-            shrinkWrap: true,
-            children: List.generate(
-              productImage.length,
-              (index) => boxTitle(
-                  image: productImage.elementAt(index),
-                  title: 'الازياء',
-                  onclick: () {
-                    Get.toNamed(Routes.PRODUCT);
-                  }),
-            ),
-          ),
+          FutureBuilder(
+              future: controller.getCategorieProducts(
+                  CategorieProductsid: Get.arguments[0]),
+              builder: (context, snapshot) {
+                print(snapshot.data);
+                return snapshot.hasData
+                    ? snapshot.data['newest'].length == 0
+                        ? Container(
+                            child: Text('لا يوجد منتجات'),
+                          )
+                        : Column(
+                            children: List.generate(
+                              snapshot.data['newest'].length,
+                              (index) => itemProduct(
+                                image: snapshot.data['newest'][index]['cover'],
+                                price: snapshot.data['newest'][index]['price']
+                                    .toString(),
+                                title: snapshot.data['newest'][index]['name'],
+                                traderName: snapshot.data['newest'][index]
+                                    ['name'],
+                                productId: snapshot.data['newest'][index]['id'],
+                              ),
+                            ),
+                          )
+                    : Container(
+                        child: Text('جارى التحميل'),
+                      );
+              }),
         ],
       ),
     );
   }
 
-  Widget bnt({
+  Widget button({
     @required String image,
     @required String title,
     Function onTap,
@@ -189,8 +211,22 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
       InkWell(
         onTap: onTap,
         child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            border: Border.all(
+              width: 1.5,
+              color: KprimaryColor,
+            ),
+          ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 10,
+            ),
             child: Column(
               children: [
                 Container(
@@ -205,24 +241,11 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
                 ),
                 Text(
                   title,
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 )
               ],
             ),
           ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-            border: Border.all(
-              width: 1,
-              color: Colors.grey,
-            ),
-          ),
         ),
       );
-
-
-
 }

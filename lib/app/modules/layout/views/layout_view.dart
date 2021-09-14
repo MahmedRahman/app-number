@@ -1,11 +1,14 @@
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/modules/acount/views/acount_view.dart';
+import 'package:app_number/app/modules/cart/views/cart_view.dart';
 import 'package:app_number/app/modules/checkout/views/checkout_view.dart';
 import 'package:app_number/app/modules/department/views/department_view.dart';
 import 'package:app_number/app/modules/favourite/views/favourite_view.dart';
 import 'package:app_number/app/modules/home/views/home_view.dart';
 import 'package:app_number/app/modules/notifaction/views/notifaction_view.dart';
 import 'package:app_number/app/modules/trader/views/trader_view.dart';
+import 'package:app_number/app/routes/app_pages.dart';
+import 'package:app_number/auth.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
@@ -21,15 +24,12 @@ class LayoutView extends GetView<LayoutController> {
       new GlobalKey<SliderMenuContainerState>();
 
   List<Widget> screen = [
-     DepartmentView(),
+    DepartmentView(),
     FavouriteView(),
-   
     HomeView(),
-    CheckoutView(),
+    CartView(),
     AcountView(),
   ];
-
-  var selectScreen = 2.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -89,174 +89,114 @@ class LayoutView extends GetView<LayoutController> {
                         SizedBox(
                           height: 15,
                         ),
-                        Text(
-                          'محمد عبد الرحمن',
-                          style: TextStyle(
-                            color: KprimaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
+                        isLogin.value
+                            ? Text(
+                                'محمد عبد الرحمن',
+                                style: TextStyle(
+                                  color: KprimaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : Text(
+                                'Number 1',
+                                style: TextStyle(
+                                  color: KprimaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
                       ],
                     ),
                   ),
                   Container(
                     child: Column(
                       children: [
-                        ListTile(
-                          onTap: () {},
-                          focusColor: Colors.white,
-                          hoverColor: Colors.red,
-                          dense: true,
-                          leading: Icon(
-                            Icons.home,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'الـرئيسية',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
+                        defaultbntListTile(
+                            onTap: () {
+                              _key.currentState.toggle();
+                              selectScreen.value = 2;
+                            },
+                            title: 'الـرئيسية',
+                            icons: Icons.home),
+                        defaultbntListTile(
+                          onTap: () {
+                            _key.currentState.toggle();
+                            Get.toNamed(Routes.PROFILE);
+                          },
+                          title: 'الصفحة الشخصية',
+                          icons: FontAwesomeIcons.userAlt,
                         ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.userAlt,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'الصفحة الشخصية',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                          ),
+                        defaultbntListTile(
+                          onTap: () {
+                            _key.currentState.toggle();
+                            selectScreen.value = 1;
+                          },
+                          title: 'المفضلة',
+                          icons: FontAwesomeIcons.solidHeart,
                         ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.solidHeart,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'المفضلة',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                          ),
+                        defaultbntListTile(
+                          onTap: () {
+                            _key.currentState.toggle();
+                            if (isLogin.value) {
+                              selectScreen.value = 3;
+                            } else {
+                              Get.toNamed(Routes.SIGNIN);
+                            }
+                          },
+                          title: 'سلة المشتريات',
+                          icons: FontAwesomeIcons.shoppingCart,
                         ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.shoppingCart,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'سلة المشتريات',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
+                        defaultbntListTile(
+                          onTap: () {
+                            _key.currentState.toggle();
+                            Get.toNamed(Routes.ORDER_BOOK);
+                          },
+                          title: 'طلباتى',
+                          icons: FontAwesomeIcons.shoppingBag,
                         ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.shoppingBag,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'طلباتى',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                          ),
+                        defaultbntListTile(
+                          onTap: () {
+                            _key.currentState.toggle();
+                            Get.toNamed(Routes.CALLUS);
+                          },
+                          title: 'تواصل معانا',
+                          icons: FontAwesomeIcons.phoneSquareAlt,
                         ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.skyatlas,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'الاعدادات',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                          ),
+                        defaultbntListTile(
+                          onTap: () {
+                            _key.currentState.toggle();
+                            Get.toNamed(Routes.ABOUT);
+                          },
+                          title: 'من نحن',
+                          icons: FontAwesomeIcons.solidQuestionCircle,
                         ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.phoneSquareAlt,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'تواصل معانا',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                          ),
+                        defaultbntListTile(
+                          onTap: () {
+                            _key.currentState.toggle();
+                            Get.toNamed(Routes.TREMS);
+                          },
+                          title: 'سياسة ارجاع السلع',
+                          icons: FontAwesomeIcons.infoCircle,
                         ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.solidQuestionCircle,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'من نحن',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                          ),
-                        ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.infoCircle,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'سياسة ارجاع السلع',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                          ),
-                        ),
-                        ListTile(
-                          dense: true,
-                          leading: Icon(
-                            FontAwesomeIcons.signOutAlt,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          title: Text(
-                            'تسجيل الخروج',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                          ),
-                        ),
+                        isLogin.value
+                            ? defaultbntListTile(
+                                onTap: () {
+                                  _key.currentState.toggle();
+                                  Get.find<UserAuth>().setUserToken(null);
+
+                                  isLogin.value = false;
+                                },
+                                title: 'تسجيل خروج',
+                                icons: FontAwesomeIcons.signOutAlt,
+                              )
+                            : defaultbntListTile(
+                                onTap: () {
+                                  _key.currentState.toggle();
+                                  selectScreen.value=2;
+                                  Get.toNamed(Routes.SIGNIN);
+                                },
+                                title: 'تسجيل دخول',
+                                icons: FontAwesomeIcons.signInAlt,
+                              ),
                       ],
                     ),
                   )
@@ -264,10 +204,7 @@ class LayoutView extends GetView<LayoutController> {
               ),
             ),
             sliderMain: Scaffold(
-              appBar:
-              
-              
-               PreferredSize(
+              appBar: PreferredSize(
                 preferredSize: Size.fromHeight(70),
                 child: Container(
                   height: 70,
@@ -294,12 +231,16 @@ class LayoutView extends GetView<LayoutController> {
                               },
                             ),
                             IconButton(
-                              icon: SvgPicture.asset('images/notifaction.svg'),
+                              icon: Icon(
+                                Icons.shopping_bag,
+                                color: Colors.white,
+                              ),
                               onPressed: () {
-                                Get.to(
-                                  NotifactionView(),
-                                  fullscreenDialog: true,
-                                );
+                                if (isLogin.value) {
+                                  selectScreen.value = 3;
+                                } else {
+                                  Get.toNamed(Routes.SIGNIN);
+                                }
                               },
                             )
                           ],
@@ -340,55 +281,57 @@ class LayoutView extends GetView<LayoutController> {
                   ),
                 ),
               ),
-              
-              
               body: screen[selectScreen.value],
               bottomNavigationBar: CurvedNavigationBar(
-                backgroundColor: KsecondaryColor,
-                buttonBackgroundColor: KprimaryColor,
+                
+                backgroundColor: Colors.transparent,
+                buttonBackgroundColor: KprimaryColor.withOpacity(.5),
                 index: selectScreen.value,
                 height: 60,
-                color: KprimaryColor,
+                color: Colors.grey[300],
                 items: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
                       FontAwesomeIcons.archway,
-                      color: KsecondaryColor,
+                      color: KprimaryColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Icon(
                       FontAwesomeIcons.heart,
-                      color: KsecondaryColor,
+                      color: KprimaryColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
                       FontAwesomeIcons.home,
-                      color: KsecondaryColor,
+                      color: KprimaryColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
                       FontAwesomeIcons.shoppingCart,
-                      color: KsecondaryColor,
+                      color: KprimaryColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
                       FontAwesomeIcons.solidUserCircle,
-                      color: KsecondaryColor,
+                      color: KprimaryColor,
                     ),
                   ),
                 ],
                 onTap: (index) {
-                  selectScreen.value = index;
-                  //Handle button tap
+                  if (isLogin.value || index == 0 || index == 2 || index == 3) {
+                    selectScreen.value = index;
+                  } else {
+                    Get.toNamed(Routes.SIGNIN);
+                  }
                 },
               ),
             ),
@@ -397,4 +340,28 @@ class LayoutView extends GetView<LayoutController> {
       }),
     );
   }
+
+  defaultbntListTile(
+          {@required Function onTap,
+          @required String title,
+          @required IconData icons}) =>
+      ListTile(
+        onTap: onTap,
+        focusColor: Colors.white,
+        hoverColor: Colors.red,
+        dense: true,
+        leading: Icon(
+          icons,
+          color: Colors.white,
+          size: 25,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+        ),
+      );
 }

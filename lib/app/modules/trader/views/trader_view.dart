@@ -1,3 +1,4 @@
+import 'package:app_number/app/data/CustomImageCached.dart';
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/data/component.dart';
 import 'package:app_number/app/data/data.dart';
@@ -12,9 +13,11 @@ import '../controllers/trader_controller.dart';
 
 class TraderView extends GetView<TraderController> {
   var sel_flg = false.obs;
+  var data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    print(data);
     return Scaffold(
       appBar: AppBar(
         title: Text('التاجر'),
@@ -24,7 +27,7 @@ class TraderView extends GetView<TraderController> {
         child: ListView(
           children: [
             SizedBox(
-              height: 40,
+              height: 5,
             ),
             Row(
               children: [
@@ -52,54 +55,43 @@ class TraderView extends GetView<TraderController> {
                   width: 10,
                 ),
                 Expanded(
-                  child: Text(
-                    'سلسلة محلات الدلتا ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: KprimaryColor),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data[0]['name'],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: KprimaryColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        data[0]['email'],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                MaterialButton(
-                  elevation: 0,
-                  color: KprimaryColor.withOpacity(.1),
-                  onPressed: () {},
-                  child: Text(
-                    'تابع',
-                    style: TextStyle(
-                      color: KprimaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 20,
                 ),
               ],
             ),
             SizedBox(
-              height: 40,
+              height: 10,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Expanded(
-                child: btn(
-                  title: 'ابلاغ',
-                  icon: SvgPicture.asset('images/icion_1.svg'),
-                ),
-              ),
-              Expanded(
-                child: btn(
-                  title: 'شات',
-                  icon: SvgPicture.asset('images/icion_2.svg'),
-                ),
-              ),
               Expanded(
                 child: btn(
                   title: 'مسابقات',
                   icon: SvgPicture.asset('images/icion_3.svg'),
                   onclick: () {
-                    Get.toNamed(Routes.QUIZ);
+                    Get.toNamed(Routes.QUIZ, arguments: data[0]['quizzes']);
                   },
                 ),
               ),
@@ -108,22 +100,21 @@ class TraderView extends GetView<TraderController> {
                   title: 'خصومات',
                   icon: SvgPicture.asset('images/icion_4.svg'),
                   onclick: () {
-                    Get.toNamed(Routes.DISCOUNT);
+                    Get.toNamed(Routes.DISCOUNT, arguments: data[0]['offers']);
                   },
                 ),
               ),
               Expanded(
                 child: btn(
-                  title: 'كوبون',
-                  icon: SvgPicture.asset('images/icion_5.svg'),
-                  onclick: (){
-                       Get.toNamed(Routes.COUPON);
-                  }
-                ),
+                    title: 'كوبون',
+                    icon: SvgPicture.asset('images/icion_5.svg'),
+                    onclick: () {
+                      Get.toNamed(Routes.COUPON, arguments: data[0]['coupons']);
+                    }),
               ),
             ]),
             SizedBox(
-              height: 40,
+              height: 5,
             ),
             Obx(
               () {
@@ -155,7 +146,9 @@ class TraderView extends GetView<TraderController> {
                                       'السلع',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: KprimaryColor,
+                                        color: sel_flg.value
+                                            ? KprimaryColor
+                                            : Colors.white,
                                       ),
                                     ),
                                   ),
@@ -185,7 +178,9 @@ class TraderView extends GetView<TraderController> {
                                       'موجز',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: KprimaryColor,
+                                        color: sel_flg.value
+                                            ? Colors.white
+                                            : KprimaryColor,
                                       ),
                                     ),
                                   ),
@@ -197,79 +192,105 @@ class TraderView extends GetView<TraderController> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     sel_flg.value == false
                         ? Column(
                             children: [
-                              GridView.count(
-                                physics: NeverScrollableScrollPhysics(),
-                                crossAxisCount: 3,
-                                shrinkWrap: true,
-                                children: List.generate(
-                                  productImage.length,
-                                  (index) => boxTitle(
-                                    image: productImage.elementAt(index),
-                                    title: 'الازياء',
-                                    onclick: () {
-                                      Get.toNamed(Routes.DEPARTMENT_SUB);
-                                    },
-                                  ),
-                                ),
-                              ),
-                              GridView.count(
-                                physics: NeverScrollableScrollPhysics(),
-                                crossAxisCount: 3,
-                                shrinkWrap: true,
-                                children: List.generate(
-                                  productImage.length,
-                                  (index) => boxTitle(
-                                    image: productImage.elementAt(index),
-                                    title: 'الازياء',
-                                  ),
-                                ),
-                              ),
+                              data[0]['products'].length == 0
+                                  ? Center(
+                                      child: Text(
+                                      'لا يوجد منتجات',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: KprimaryColor,
+                                      ),
+                                    ))
+                                  : ListView(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      //crossAxisCount: 1,
+                                      shrinkWrap: true,
+                                      children: List.generate(
+                                          data[0]['products'].length,
+                                          (index) => itemProduct(
+                                                image: data[0]['products']
+                                                    [index]['cover'],
+                                                price: data[0]['products']
+                                                        [index]['price']
+                                                    .toString(),
+                                                title: data[0]['products']
+                                                    [index]['name'],
+                                                traderName: data[0]['products']
+                                                    [index]['name'],
+                                                productId: data[0]['products']
+                                                    [index]['id'],
+                                              )),
+                                    ),
                             ],
                           )
-                        : GridView.count(
-                            physics: NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            shrinkWrap: true,
-                            children: List.generate(
-                              productImage.length,
-                              (index) => Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: Stack(
-                                  alignment: Alignment.topLeft,
-                                  fit: StackFit.expand,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.grey,
+                        : data[0]['statuses'].length == 0
+                            ? Container(
+                                child: Text(
+                                  'لا يوجد حالات',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: KprimaryColor,
+                                  ),
+                                ),
+                              )
+                            : GridView.count(
+                                physics: NeverScrollableScrollPhysics(),
+                                crossAxisCount: 2,
+                                shrinkWrap: true,
+                                children: List.generate(
+                                  data[0]['statuses'].length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: Stack(
+                                      alignment: Alignment.topLeft,
+                                      fit: StackFit.expand,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          child: GetUtils.isNullOrBlank(data[0]
+                                                  ['statuses'][index]['image'])
+                                              ? Container(
+                                                  color: Colors.white,
+                                                  child: Center(
+                                                    child: Text(
+                                                      data[0]['statuses'][index]
+                                                          ['text'],
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              : CustomImageCached(
+                                                  imageUrl: data[0]['statuses']
+                                                      [index]['image']),
                                         ),
-                                      ),
-                                      child: Image.asset(
-                                        productImage.elementAt(index),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 64,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Icon(
-                                          FontAwesomeIcons.image,
-                                          color: Colors.white,
+                                        SizedBox(
+                                          width: 64,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              FontAwesomeIcons.image,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
                   ],
                 );
               },
@@ -313,7 +334,11 @@ Widget btn({
                 vertical: 10,
                 horizontal: 15,
               ),
-              child: icon,
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: icon,
+              ),
             ),
           ),
           SizedBox(
@@ -323,7 +348,7 @@ Widget btn({
             title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 10,
+              fontSize: 12,
             ),
           )
         ],

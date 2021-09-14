@@ -1,3 +1,5 @@
+import 'package:app_number/app/api/response_model.dart';
+import 'package:app_number/app/api/web_serives.dart';
 import 'package:get/get.dart';
 
 class DepartmentDetailController extends GetxController {
@@ -12,6 +14,22 @@ class DepartmentDetailController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+  }
+
+  ResponsModel newCategoryProductsRespons;
+  Future getCategorieProducts({CategorieProductsid}) async {
+   
+      newCategoryProductsRespons =
+          await WebServices().getCategorieProducts(id: CategorieProductsid);
+    
+    if (newCategoryProductsRespons.success) {
+      Response response = newCategoryProductsRespons.data;
+      if (response.body['status']) {
+    
+          return response.body['data'];
+        
+      }
+    }
   }
 
   @override
