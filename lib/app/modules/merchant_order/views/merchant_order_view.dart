@@ -29,6 +29,10 @@ class MerchantOrderView extends GetView<MerchantOrderController> {
                 future: controller.OrdersMerchant.value,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+
+print('xxxxxxxx');
+print(snapshot.data.length);
+
                     return snapshot.data.length == 0
                         ? Container(
                             child: Text('لايوجد طلبات'),
@@ -117,7 +121,8 @@ class MerchantOrderView extends GetView<MerchantOrderController> {
                 height: 10,
               ),
               Text(
-                'العنوان : ${data['address']['name'].toString()} ${data['address']['street'].toString()} ${data['address']['building'].toString()} ',
+                '',
+               // 'العنوان : ${data['address']['name'].toString()} ${data['address']['street'].toString()} ${data['address']['building'].toString()} ',
                 style: TextStyle(
                   fontSize: 16,
                 ),

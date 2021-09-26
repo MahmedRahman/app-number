@@ -24,7 +24,7 @@ class ProductViewList extends StatelessWidget {
                 image: data[index]['cover'],
                 price: data[index]['price'].toString(),
                 title: data[index]['name'],
-                traderName: '',
+                traderName: data[index]['merchant']['name'],
                 discout: data[index]['discount'].toString(),
                 productId: data[index]['id'],
               ),

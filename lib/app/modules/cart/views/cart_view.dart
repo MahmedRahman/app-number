@@ -187,7 +187,7 @@ itemProduct({
                       ),
                       Row(
                         children: [
-                          Text('سعر القطعة'),
+                          Text('سعر '),
                           SizedBox(
                             width: 5,
                           ),
@@ -200,7 +200,13 @@ itemProduct({
                       SizedBox(
                         height: 5,
                       ),
-                      Row(
+                         IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              cartProducts.removeAt(index);
+                            },
+                          ),
+                    /*  Row(
                         children: [
                           Text('التاجر'),
                           SizedBox(
@@ -220,6 +226,7 @@ itemProduct({
                           ),
                         ],
                       ),
+                    */
                     ],
                   ),
                 ),

@@ -167,7 +167,7 @@ itemProduct(
                               cartProducts.add(new productItem(
                                 productsid: productId,
                                 productsName: title,
-                                productsPrice: price,
+                                productsPrice: double.parse(price) ,
                                 productsImage: image,
                                 merchantName: traderName,
                                 qty: 1,

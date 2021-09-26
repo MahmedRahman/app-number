@@ -9,7 +9,7 @@ class MerchantAddCouponController extends GetxController {
   TextEditingController name = TextEditingController();
   TextEditingController discount = TextEditingController();
   TextEditingController expire = TextEditingController();
-
+  TextEditingController start = TextEditingController();
   final count = 0.obs;
 
   @override
@@ -35,30 +35,36 @@ class MerchantAddCouponController extends GetxController {
   }
 
   Future addCouponsMerchant() async {
-    ResponsModel responsModel = await WebServices().addCouponsMerchant(
-      name: name.text,
-      discount: discount.text,
-      expireAt: expire.text,
-    );
+    if (GetUtils.isNullOrBlank(start.text) &
+        GetUtils.isNullOrBlank(expire.text)) {
+      Fluttertoast.showToast(msg: 'خطاء فى تاريخ البداية او النهاية');
+    } else {
+      ResponsModel responsModel = await WebServices().addCouponsMerchant(
+        name: name.text,
+        discount: discount.text,
+        expireAt: expire.text,
+        start_at: start.text,
+      );
 
-    ClearData();
-    Get.back();
+      ClearData();
+      Get.back();
 
-    if (responsModel.success) {
-      Response response = responsModel.data;
-      if (response.body['status']) {
-        Fluttertoast.showToast(
-          msg: response.body['message'],
-          toastLength: Toast.LENGTH_SHORT,
-        );
-      } else {
-        Fluttertoast.showToast(
-          msg: response.body['message'],
-          toastLength: Toast.LENGTH_SHORT,
-        );
+      if (responsModel.success) {
+        Response response = responsModel.data;
+        if (response.body['status']) {
+          Fluttertoast.showToast(
+            msg: response.body['message'],
+            toastLength: Toast.LENGTH_SHORT,
+          );
+        } else {
+          Fluttertoast.showToast(
+            msg: response.body['message'],
+            toastLength: Toast.LENGTH_SHORT,
+          );
+        }
+
+        getCouponsMerchant();
       }
-
-         getCouponsMerchant();
     }
   }
 

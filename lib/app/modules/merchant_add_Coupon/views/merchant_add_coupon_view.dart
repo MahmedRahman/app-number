@@ -11,6 +11,8 @@ import 'package:app_number/app/data/validation.dart';
 class MerchantAddCouponView extends GetView<MerchantAddCouponController> {
   final _formKey = GlobalKey<FormState>();
   var date = DateFormat('dd-MM-yyyy').format(DateTime.now()).toString().obs;
+  var datestart = DateFormat('dd-MM-yyyy').format(DateTime.now()).toString().obs;
+
   @override
   Widget build(BuildContext context) {
     controller.getCouponsMerchant();
@@ -87,10 +89,30 @@ class MerchantAddCouponView extends GetView<MerchantAddCouponController> {
     );
 
     if (pickedDate != null) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+      String formattedDate2 = DateFormat('yyyy-MM-dd').format(pickedDate);
 
-      date.value = formattedDate;
-      controller.expire.text = formattedDate;
+      date.value = formattedDate2;
+      controller.expire.text = formattedDate2;
+      //formatted date output using intl package =>  2021-03-16
+    } else {
+      print("Date is not selected");
+    }
+  }
+
+  void showdateStart(context) async {
+    DateTime pickedDate = await showDatePicker(
+      context: context, //context of current state
+      initialDate: DateTime.now(),
+      firstDate: DateTime
+          .now(), //DateTime.now() - not to allow to choose before today.
+      lastDate: DateTime(2025),
+    );
+
+    if (pickedDate != null) {
+      String formattedDate1 = DateFormat('yyyy-MM-dd').format(pickedDate);
+
+      datestart.value = formattedDate1;
+      controller.start.text = formattedDate1;
       //formatted date output using intl package =>  2021-03-16
     } else {
       print("Date is not selected");
@@ -105,21 +127,41 @@ class MerchantAddCouponView extends GetView<MerchantAddCouponController> {
           defaultTextFormField(
             hintText: 'الاسم',
             controller: controller.name,
-            validator: (String v) =>
-                v.isNotEmpty ? null : 'مطلوب ادخال قيمة',
+            validator: (String v) => v.isNotEmpty ? null : 'مطلوب ادخال قيمة',
           ),
           SizedBox(
-            height: 20,
+            height: 5,
           ),
           defaultTextFormField(
             hintText: 'النسبة',
             controller: controller.discount,
             textInputType: TextInputType.number,
-            validator: (String v) =>
-                v.isNotEmpty ? null : 'مطلوب ادخال قيمة',
+            validator: (String v) => v.isNotEmpty ? null : 'مطلوب ادخال قيمة',
           ),
           SizedBox(
-            height: 20,
+            height: 5,
+          ),
+          Text('تاريخ البداية'),
+              SizedBox(
+            height: 5,
+          ),
+          Obx(() {
+            return SizedBox(
+              width: Get.width,
+              child: ElevatedButton(
+                onPressed: () {
+                  showdateStart(context);
+                },
+                child: Text(datestart.value.toString()),
+              ),
+            );
+          }),
+          SizedBox(
+            height: 5,
+          ),
+          Text('تاريخ النهاية'),
+              SizedBox(
+            height: 5,
           ),
           Obx(() {
             return SizedBox(
@@ -132,8 +174,9 @@ class MerchantAddCouponView extends GetView<MerchantAddCouponController> {
               ),
             );
           }),
+      
           SizedBox(
-            height: 20,
+            height: 5,
           ),
           defaultButton(
             title: 'أضف',

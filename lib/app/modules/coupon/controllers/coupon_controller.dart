@@ -15,12 +15,17 @@ class CouponController extends GetxController {
     }
   }
 
-  addCouponsMerchant(
-      {@required name, @required discount, @required expireAt}) async {
+  addCouponsMerchant({
+    @required name,
+    @required discount,
+    @required expireAt,
+    @required start_at,
+  }) async {
     ResponsModel responsModel = await WebServices().addCouponsMerchant(
       name: name,
       discount: discount,
       expireAt: expireAt,
+      start_at: start_at,
     );
 
     if (responsModel.success) {

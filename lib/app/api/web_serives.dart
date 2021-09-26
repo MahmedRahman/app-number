@@ -517,12 +517,19 @@ class WebServices extends APIManger {
     @required name,
     @required discount,
     @required expireAt,
+    @required start_at,
   }) async {
-    ResponsModel response = await repPost('merchant/coupons/add', {
-      'name': name,
-      'discount': discount,
-      'expire_at': expireAt,
-    });
+    ResponsModel response = await repPost(
+      'merchant/coupons/add',
+      {
+        'name': name,
+        'code': name,
+        'discount': discount,
+        'expire_at': expireAt,
+        'start_at': start_at
+      },
+      showLoading: true,
+    );
     return response;
   }
 

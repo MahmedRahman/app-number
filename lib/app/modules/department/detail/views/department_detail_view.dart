@@ -210,7 +210,7 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
                                 price: snapshot.data['newest'][index]['price']
                                     .toString(),
                                 title: snapshot.data['newest'][index]['name'],
-                                traderName: '',
+                                traderName: snapshot.data['newest'][index]['merchant']['name'],
                                 productId: snapshot.data['newest'][index]['id'],
                               ),
                             ),

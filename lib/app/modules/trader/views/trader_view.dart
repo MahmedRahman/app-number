@@ -220,7 +220,8 @@ class TraderView extends GetView<TraderController> {
                                                     .toString(),
                                                 title: data[0]['products']
                                                     [index]['name'],
-                                                traderName: '',
+                                                traderName: data[0]['products']
+                                                    [index]['merchant']['name'],
                                                 productId: data[0]['products']
                                                     [index]['id'],
                                               )),
