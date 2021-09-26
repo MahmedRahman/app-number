@@ -21,7 +21,11 @@ class SignupView extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     data = Get.arguments;
+
+    controller.city.text = '1';
+
     usertype.value = GetUtils.isNullOrBlank(data) ? 0 : data[0];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('حساب جديد'),
@@ -39,17 +43,18 @@ class SignupView extends GetView<SignupController> {
               color: KprimaryColor,
               height: 200,
             ),
-               SizedBox(
+            SizedBox(
               height: 20,
             ),
             defualtUploadImage(
-                image: 'images/add_photo.png',
-                text: 'اضف صورة مرئية',
-                onTap: () async {
-                  final ImagePicker _picker = ImagePicker();
-                  image = await _picker.pickImage(source: ImageSource.gallery);
-                  path.value = image.path;
-                }),
+              image: 'images/add_photo.png',
+              text: 'اضف صورة مرئية',
+              onTap: () async {
+                final ImagePicker _picker = ImagePicker();
+                image = await _picker.pickImage(source: ImageSource.gallery);
+                path.value = image.path;
+              },
+            ),
             Obx(() {
               return path.value == ''
                   ? Container()
@@ -57,7 +62,6 @@ class SignupView extends GetView<SignupController> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          
                           SizedBox(
                             height: 200,
                             child: Image.file(
@@ -119,28 +123,53 @@ class SignupView extends GetView<SignupController> {
             SizedBox(
               height: 20,
             ),
-            MaterialButton(
-              height: 60,
-              minWidth: double.infinity,
-              color: KprimaryColor,
-              onPressed: () {
-                File file = File(image.path);
-
-                controller.ProfileImage = file;
-
-                if (usertype.value == 0) {
-                  controller.signup();
-                } else {
-                  controller.merchantSignup();
-                }
-              },
-              child: Text(
-                'انشاء حساب',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+            DropdownButtonFormField(
+              decoration: new InputDecoration(
+                filled: true,
+                fillColor: KprimaryColor.withOpacity(.1),
+                labelText: 'اسم المدينة',
+                border: OutlineInputBorder(),
               ),
+              validator: (v) =>
+                  v.toString().isNotEmpty ? null : 'مطلوب ادخال قيمة',
+              isExpanded: true,
+              value: int.parse(controller.city.text),
+              icon: Icon(Icons.keyboard_arrow_down),
+              items: cityListItems.map((items) {
+                return DropdownMenuItem(
+                  value: items['id'],
+                  child: Text(
+                    items['name'],
+                  ),
+                );
+              }).toList(),
+              onChanged: (val) {
+                controller.city.text = val.toString();
+              },
             ),
+            SizedBox(
+              height: 20,
+            ),
+            defaultButton(
+                title: 'انشاء حساب',
+                onPressed: () {
+
+
+
+
+                  
+                  if (GetUtils.isNullOrBlank(image)) {
+                  } else {
+                    File file = File(image.path);
+                    controller.ProfileImage = file;
+                  }
+
+                  if (usertype.value == 0) {
+                    controller.signup();
+                  } else {
+                    controller.merchantSignup();
+                  }
+                }),
             SizedBox(
               height: 20,
             ),

@@ -1,3 +1,4 @@
+import 'package:app_number/app/api/response_model.dart';
 import 'package:app_number/app/api/web_serives.dart';
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/routes/app_pages.dart';
@@ -5,10 +6,10 @@ import 'package:get/get.dart';
 
 class CartInvoiceController extends GetxController {
   //TODO: Implement CartInvoiceController
-
   final count = 0.obs;
   @override
   void onInit() {
+    getTax();
     super.onInit();
   }
 
@@ -27,12 +28,35 @@ class CartInvoiceController extends GetxController {
         Response response = value.data;
 
         if (response.body['status']) {
-          KTax.value = response.body['data']['discount'];
+          KTax.value = int.parse(response.body['data']['tax']);
         }
 
         return true;
       },
     );
+  }
+
+  Future getShippingOrders() async {
+    var products = cartProducts
+        .fold(
+            '',
+            (previousValue, element) => previousValue =
+                previousValue + element.productsid.toString() + ',')
+        .toString()
+        .replaceAll(RegExp(r'.$'), "");
+
+    ResponsModel responsModel = await WebServices().getShippingOrders(
+      address_id: Kselectaddress.value,
+      products: products.toString(),
+    );
+
+    if (responsModel.success) {
+      Response response = responsModel.data;
+      if (response.body['status']) {
+        print(response.body['data']['shipping'].toString());
+        Kshipping.value = int.parse(response.body['data']['shipping'].toString());
+      }
+    }
   }
 
   Function createOrders() {
@@ -79,17 +103,13 @@ class CartInvoiceController extends GetxController {
       Response response = value.data;
 
       if (response.body['status']) {
-
-print(response.bodyString);
-
-
+        print(response.bodyString);
 
         Get.snackbar(Appname, 'تم تنفيذ الطلب',
             snackbarStatus: (snackbarStatus) {
           if (snackbarStatus == SnackbarStatus.CLOSED) {
             cartProducts.clear();
             Get.toNamed(Routes.LAYOUT);
-
           }
         });
       } else {

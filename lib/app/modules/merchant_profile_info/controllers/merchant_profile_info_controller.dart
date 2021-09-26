@@ -19,6 +19,8 @@ class MerchantProfileInfoController extends GetxController {
 
   TextEditingController newPassword = new TextEditingController();
 
+  TextEditingController city = new TextEditingController();
+
   String image;
   File profileImage;
 
@@ -40,17 +42,25 @@ class MerchantProfileInfoController extends GetxController {
     ResponsModel responsModel = await WebServices().getProfileMerchant();
     if (responsModel.success) {
       Response response = responsModel.data;
+      String cityid = response.body['data']['city']['id'].toString()== "0" ? "1" :response.body['data']['city']['id'].toString() ;
+print(cityid);
       name.text = response.body['data']['name'];
       email.text = response.body['data']['email'];
       phone.text = response.body['data']['phone'];
       image = response.body['data']['image'];
+      city.text = cityid ;
       return response.body['data'];
     }
   }
 
   editProfileMerchant() async {
     ResponsModel responsModel = await WebServices().editProfileMerchant(
-        name: name.text, phone: phone.text, profileImage: profileImage);
+      name: name.text,
+      phone: phone.text,
+      city: city.text,
+      profileImage: profileImage,
+
+    );
 
     if (responsModel.success) {
       Response response = responsModel.data;
@@ -59,7 +69,6 @@ class MerchantProfileInfoController extends GetxController {
           msg: response.body['message'],
           toastLength: Toast.LENGTH_SHORT,
         );
-        
       } else {
         Fluttertoast.showToast(
           msg: response.body['message'],

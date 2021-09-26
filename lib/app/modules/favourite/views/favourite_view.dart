@@ -136,16 +136,31 @@ class FavouriteView extends GetView<FavouriteController> {
                     width: Get.width * .4,
                     child: defaultButton(
                         onPressed: () async {
-                          cartProducts.add(
-                            new productItem(
-                              productsid: snapshot.data['id'],
-                              productsName: snapshot.data['name'],
-                              productsPrice: snapshot.data['price'],
-                              productsImage: snapshot.data['cover'],
-                              qty: 1,
-                            ),
+
+
+                          var result = cartProducts.where(
+                            (cartProduct) =>
+                                cartProduct.productsid.toLowerCase().contains(
+                                      snapshot.data['id'].toString(),
+                                    ),
                           );
-                          Fluttertoast.showToast(msg: 'تم الاضافة الى السلة');
+                          
+                          if (result.length == 0) {
+                            cartProducts.add(
+                              new productItem(
+                                productsid: snapshot.data['id'],
+                                productsName: snapshot.data['name'],
+                                productsPrice: snapshot.data['price'],
+                                productsImage: snapshot.data['cover'],
+                                merchantName: snapshot['merchant']['name'],
+                                qty: 1,
+                              ),
+                            );
+                            Fluttertoast.showToast(msg: 'تم الاضافة الى السلة');
+                          } else {
+                            Fluttertoast.showToast(
+                                msg: 'هذا المنتج موجود فى السلة');
+                          }
                         },
                         title: 'اضف الى السلة'),
                   ),

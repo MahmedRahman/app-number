@@ -8,22 +8,30 @@ import 'package:get/get.dart';
 import '../controllers/cart_invoice_controller.dart';
 
 class CartInvoiceView extends GetView<CartInvoiceController> {
+  double tax;
   CartInvoiceView() {
     int totalQty = 0;
     double totalPrice = 0;
+
     cartProducts.forEach((element) {
       totalQty = totalQty + element.qty;
-      totalPrice = totalPrice + element.productsPrice;
+      totalPrice = totalPrice + (element.productsPrice * element.qty);
       KcartToalProduct.value = totalPrice.toString();
       KcartQty.value = totalQty.toString();
     });
 
     KcartToal.value =
-        ((totalPrice + KTax.value + Kshipping.value) - Kdiscount.value).toString();
+        ((totalPrice + Kshipping.value) - Kdiscount.value).toString();
+
+    tax = (double.parse(KcartToal.value) * KTax.value) / 100;
+
+    KcartToal.value = (double.parse(KcartToal.value) + tax).toString();
   }
 
   @override
   Widget build(BuildContext context) {
+    controller.getTax();
+    controller.getShippingOrders();
     return Scaffold(
       appBar: AppBar(
         title: Text('الفاتورة'),
@@ -59,8 +67,9 @@ class CartInvoiceView extends GetView<CartInvoiceController> {
             ),
             Card(
               child: ListTile(
-                title: Text('الضريبة'),
-                trailing: Text('${KTax.value} ريال'),
+                title: Text('الضريبة ${KTax.value} %'),
+           
+                trailing: Text('${tax.toString()} ريال'),
               ),
             ),
             Card(

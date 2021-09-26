@@ -23,22 +23,31 @@ class OrderBookView extends GetView<OrderBookController> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SingleChildScrollView(
                   child: Column(
-                    children: List.generate(snapshot.data.length, (index) => Card(
-                      child: ListTile(
-                        onTap: (){
-                          Get.toNamed(Routes.ORDER_BOOK_DETAIL,arguments: [snapshot.data[index]]);
-                        },
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('رقم الطلبية  ${snapshot.data[index]['id'].toString()}'),
-                            Text(' الاجمالى ${snapshot.data[index]['cart_total'].toString()} '),
-                          ],
-                        ),
-                        subtitle: Text('الحالة ${snapshot.data[index]['status'].toString()} '),
-                      
-                      ),
-                    )),
+                    children: List.generate(
+                        snapshot.data.length,
+                        (index) => Card(
+                              child: ListTile(
+                                onTap: () {
+                                  Get.toNamed(
+                                    Routes.ORDER_BOOK_DETAIL,
+                                    arguments: [snapshot.data[index]],
+                                  );
+                                },
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        'رقم الطلبية  ${snapshot.data[index]['id'].toString()}'),
+                                    Text(
+                                        'تاريخ الطلبية  ${snapshot.data[index]['date'].toString()}'),
+                                    Text(
+                                        ' الاجمالى ${snapshot.data[index]['cart_total'].toString()} '),
+                                  ],
+                                ),
+                                subtitle: Text(
+                                    'الحالة ${snapshot.data[index]['status'].toString()} '),
+                              ),
+                            )),
                   ),
                 ),
               );

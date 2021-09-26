@@ -23,8 +23,7 @@ class DashbordView extends GetView<DashbordController> {
   List<Widget> screen = [
     MerchantBordView(),
     MerchantProductView(),
-
-        MerchantHomeView(),
+    MerchantHomeView(),
     MerchantOrderView(),
     MerchantProfileView()
   ];
@@ -155,7 +154,7 @@ class DashbordView extends GetView<DashbordController> {
                           title: 'سياسة ارجاع السلع',
                           icons: FontAwesomeIcons.infoCircle,
                         ),
-                         defaultbntListTile(
+                        defaultbntListTile(
                           onTap: () {
                             _key.currentState.toggle();
                             Get.toNamed(Routes.TREMS);
@@ -166,8 +165,8 @@ class DashbordView extends GetView<DashbordController> {
                         defaultbntListTile(
                           onTap: () {
                             _key.currentState.toggle();
-                            selectScreen.value=2;
-                            Get.offAndToNamed(Routes.SIGNIN);
+                            selectScreen.value = 2;
+                            Get.offAndToNamed(Routes.SPLASH);
                             //Get.toNamed(Routes.TREMS);
                           },
                           title: 'تسجيل الخروج',
@@ -263,20 +262,17 @@ class DashbordView extends GetView<DashbordController> {
                 height: 60,
                 color: KprimaryColor,
                 items: <Widget>[
-
-                      Padding(
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
                       FontAwesomeIcons.plus,
                       color: KsecondaryColor,
                     ),
                   ),
-
-                  
                   Padding(
                       padding: const EdgeInsets.all(8),
                       child: Image.asset('images/menu_home_2.png')),
-              Padding(
+                  Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image.asset('images/menu_home_1.png')),
                   Padding(

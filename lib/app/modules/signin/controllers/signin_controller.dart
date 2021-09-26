@@ -13,8 +13,7 @@ class SigninController extends GetxController {
   TextEditingController password = new TextEditingController();
   @override
   void onInit() {
-    email.text = 'test1000@example.com';
-    password.text = '12345678';
+
     super.onInit();
   }
 
@@ -53,6 +52,13 @@ class SigninController extends GetxController {
   }
 
   Future signinMerchant() {
+
+
+
+
+
+
+    
     WebServices()
         .signinMerchant(email: email.text, password: password.text)
         .then(

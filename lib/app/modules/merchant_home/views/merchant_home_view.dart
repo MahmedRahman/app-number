@@ -35,7 +35,7 @@ class MerchantHomeView extends GetView<MerchantHomeController> {
                       height: 50,
                       child: CustomImageCached(imageUrl: userData['image']),
                     ),
-                      SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -91,18 +91,13 @@ class MerchantHomeView extends GetView<MerchantHomeController> {
               children: [
                 Expanded(
                   child: defaultbox(
-                      image: 'images/icon3.png',
-                      title: ' المراسلات',
-                      onTap: () {}),
+                    image: 'images/icon1.png',
+                    title: ' الطلبات',
+                    onTap: () {
+                      selectScreen.value = 3;
+                    },
+                  ),
                 ),
-                Expanded(
-                    child: defaultbox(
-                  image: 'images/icon1.png',
-                  title: ' الطلبات',
-                  onTap: () {
-                    selectScreen.value = 3;
-                  },
-                )),
               ],
             )
           ],

@@ -17,17 +17,32 @@ class DepartmentDetailController extends GetxController {
   }
 
   ResponsModel newCategoryProductsRespons;
+
+  var merchants;
+  var newest;
+
+  var most_selling;
+
+  var offers;
+  var subs;
+
   Future getCategorieProducts({CategorieProductsid}) async {
-   
-      newCategoryProductsRespons =
-          await WebServices().getCategorieProducts(id: CategorieProductsid);
-    
+    if (GetUtils.isNullOrBlank(newCategoryProductsRespons)) {
+      newCategoryProductsRespons = await WebServices().getCategorieProducts(
+        id: CategorieProductsid,
+      );
+    }
+
     if (newCategoryProductsRespons.success) {
       Response response = newCategoryProductsRespons.data;
       if (response.body['status']) {
-    
-          return response.body['data'];
+        newest = response.body['data']['newest'];
+
+        most_selling = response.body['data']['most_selling'];
+
+        offers = response.body['data']['offers'];
         
+        return response.body['data'];
       }
     }
   }

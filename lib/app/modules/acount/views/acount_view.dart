@@ -55,7 +55,7 @@ class AcountView extends GetView<AcountController> {
                     height: 15,
                   ),
                   Text(
-                    'محمد عبد الرحمن',
+                    'number 1',
                     style: TextStyle(
                       color: KprimaryColor,
                       fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class AcountView extends GetView<AcountController> {
                 onTap: () {
                   selectScreen.value = 1;
                 },
-                title: Text('المفضلة'),
+                title: Text('قائمة الامنيات'),
                 leading: Icon(
                   FontAwesomeIcons.solidHeart,
                   color: KprimaryColor,

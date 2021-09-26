@@ -66,6 +66,22 @@ class HomeController extends GetxController {
     }
   }
 
+  
+  ResponsModel getSliderRespons;
+  Future getSlider() async {
+   
+      getSliderRespons = await WebServices().getSlider();
+    
+    if (getSliderRespons.success) {
+      Response response = getSliderRespons.data;
+      if (response.body['status']) {
+        return response.body['data'];
+      }
+    }
+  }
+
+
+
   ResponsModel getMerchantsRespons;
   Future getMerchants() async {
    

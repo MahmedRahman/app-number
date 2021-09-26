@@ -1,5 +1,7 @@
 import 'package:app_number/app/data/app_const.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 
@@ -102,7 +104,10 @@ class CouponView extends GetView<CouponController> {
                   ),
                   MaterialButton(
                     color: KprimaryColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      Clipboard.setData(new ClipboardData(text: discount));
+                      Fluttertoast.showToast(msg: 'تم نسخ الكود');
+                    },
                     child: Text(
                       'احصل عليه',
                       style: TextStyle(

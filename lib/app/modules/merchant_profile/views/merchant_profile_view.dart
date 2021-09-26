@@ -8,6 +8,9 @@ import 'package:get/get.dart';
 import '../controllers/merchant_profile_controller.dart';
 
 class MerchantProfileView extends GetView<MerchantProfileController> {
+
+MerchantProfileController controller = Get.put(MerchantProfileController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +43,26 @@ class MerchantProfileView extends GetView<MerchantProfileController> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: Text(
-                        '${userData['name']}',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
+                      child: Column(
+                        children: [
+                          Text(
+                            '${userData['name']}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            '${userData['subscribed'] ? 'مشترك' : 'غير مشترك'}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -60,6 +77,17 @@ class MerchantProfileView extends GetView<MerchantProfileController> {
               ),
               onTap: () {
                 Get.toNamed(Routes.MERCHANT_PROFILE_INFO);
+              },
+            ),
+            defaultProfileCard(
+              title: 'طلب اشترك',
+              leadingIcon: Image.asset(
+                'images/profile.png',
+                color: KprimaryColor,
+              ),
+              onTap: () {
+                controller.subscribeRequestMerchant();
+                // Get.toNamed(Routes.MERCHANT_PROFILE_INFO);
               },
             ),
             defaultProfileCard(
@@ -88,7 +116,10 @@ class MerchantProfileView extends GetView<MerchantProfileController> {
                 'images/exit.png',
                 color: KprimaryColor,
               ),
-              onTap: () {},
+              onTap: () {
+                selectScreen.value = 2;
+                Get.offAndToNamed(Routes.SPLASH);
+              },
             ),
           ],
         ),

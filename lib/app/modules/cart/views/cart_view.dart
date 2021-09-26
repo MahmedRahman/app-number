@@ -1,3 +1,4 @@
+import 'package:app_number/app/data/CustomImageCached.dart';
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class CartView extends GetView<CartController> {
 
   @override
   Widget build(BuildContext context) {
-    print(cartProducts);
+    print('cartProducts');
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 0),
@@ -25,7 +26,13 @@ class CartView extends GetView<CartController> {
   listCart() => Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
         child: cartProducts.length == 0
-            ? Center(child: Text('لا يوجد منتجات فى السلة'))
+            ? Center(
+                child: Text(
+                'لا يوجد منتجات فى السلة',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ))
             : Obx(() {
                 return SingleChildScrollView(
                   child: Column(
@@ -40,10 +47,33 @@ class CartView extends GetView<CartController> {
                                     cartProducts.elementAt(index).productsPrice,
                                 title:
                                     cartProducts.elementAt(index).productsName,
+                                merchantName:
+                                    cartProducts.elementAt(index).merchantName,
                                 productId:
                                     cartProducts.elementAt(index).productsid,
                                 qty: cartProducts.elementAt(index).qty,
-                                index: index)),
+                                index: index,
+                                Funadd: () {
+                                  productItem product =
+                                      cartProducts.elementAt(index);
+
+                                  product.qty = product.qty + 1;
+
+                                  cartProducts.assign(product);
+                                },
+                                Funminus: () {
+                                  productItem product =
+                                      cartProducts.elementAt(index);
+
+                                  if (product.qty == 1) {
+                                    Fluttertoast.showToast(
+                                        msg: 'لا يمكن تقليل الكمية');
+                                  } else {
+                                    product.qty = product.qty - 1;
+                                  }
+
+                                  cartProducts.assign(product);
+                                })),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -52,7 +82,8 @@ class CartView extends GetView<CartController> {
                             title: 'متابعة',
                             onPressed: () {
                               if (cartProducts.length == 0) {
-                                Fluttertoast.showToast(msg: 'لا يوجد منتجات فى السلة');
+                                Fluttertoast.showToast(
+                                    msg: 'لا يوجد منتجات فى السلة');
                               } else {
                                 if (isLogin.value) {
                                   Get.toNamed(Routes.CART_ADDRESS);
@@ -69,15 +100,19 @@ class CartView extends GetView<CartController> {
       );
 }
 
-itemProduct(
-        {@required image,
-        @required title,
-        @required price,
-        @required qty,
-        @required productId,
-        @required index}) =>
+itemProduct({
+  @required image,
+  @required title,
+  @required price,
+  @required qty,
+  @required merchantName,
+  @required productId,
+  @required index,
+  Function Funadd,
+  Function Funminus,
+}) =>
     Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
@@ -106,7 +141,13 @@ itemProduct(
                       bottomRight: Radius.circular(20),
                     ),
                   ),
-                  child: Image.network(image),
+                  child: SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: CustomImageCached(
+                      imageUrl: image,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(
@@ -124,61 +165,65 @@ itemProduct(
                       ),
                       Text(
                         title,
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
                       Row(
-                        children: [Text('عدد القطع '), Text(qty.toString())],
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          TextButton(onPressed: Funadd, child: Text('+')),
+                          Text(qty.toString()),
+                          TextButton(onPressed: Funminus, child: Text('-')),
+                        ],
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      Text(
-                        '${price.toString()} ريال',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: KprimaryColor),
+                      Row(
+                        children: [
+                          Text('سعر القطعة'),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            '${price.toString()} ريال',
+                            style: TextStyle(color: KprimaryColor),
+                          )
+                        ],
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          cartProducts.removeAt(index);
-                        },
+                      Row(
+                        children: [
+                          Text('التاجر'),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            merchantName.toString(),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              cartProducts.removeAt(index);
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
               ),
-
-              /* Stack(
-                  
-                  alignment: Alignment.topLeft,
-                  children: [
-                  
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: KprimaryColor.withOpacity(.3),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                        ),
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.favorite,
-                              color: KprimaryColor,
-                            ),
-                            onPressed: () {}),
-                      ),
-                    )
-                  ],
-                ),*/
             ],
           ),
         ),

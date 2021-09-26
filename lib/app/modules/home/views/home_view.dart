@@ -112,14 +112,25 @@ class HomeView extends GetView<HomeController> {
         },
       );
 
-  defaultSlider() => SizedBox(
-        height: 200,
-        child: FittedBox(
-          alignment: Alignment.topCenter,
-          child: Image.asset('images/bg.png'),
-          fit: BoxFit.fill,
-        ),
-      );
+  defaultSlider() => FutureBuilder(
+      future: controller.getSlider(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return SizedBox(
+            height: 200,
+            child: PageView(
+                children: List.generate(snapshot.data.length, (index) {
+              print(snapshot.data[index]['image']);
+              return Container(
+                child: CustomImageCached(
+                      imageUrl: snapshot.data[index]['image'],
+                    ),
+              );
+            })),
+          );
+        }
+        return CircularProgressIndicator();
+      });
 
   listMerchant({
     @required imageList,
@@ -134,8 +145,7 @@ class HomeView extends GetView<HomeController> {
                   children: List.generate(
                     snapshot.data.length,
                     (index) => box(
-                      image:snapshot.data[index]['logo']
-                         ,
+                      image: snapshot.data[index]['logo'],
                       title: snapshot.data[index]['name'],
                       onclick: () {
                         Get.toNamed(Routes.TRADER,
@@ -164,23 +174,15 @@ class HomeView extends GetView<HomeController> {
                             ? boxCircleTitle(
                                 title: snapshot.data[index]['text'],
                                 onclick: () {
-                             
                                   Get.toNamed(Routes.SHOPSTATUS,
                                       arguments: [snapshot.data[index]]);
-                                      
                                 },
                               )
                             : boxCircle(
                                 image: snapshot.data[index]['image'],
                                 onclick: () {
-                       
-
-
-                                  Get.toNamed(Routes.SHOPSTATUS, arguments: [
-                                    snapshot.data[index]
-                                  ]);
-
-
+                                  Get.toNamed(Routes.SHOPSTATUS,
+                                      arguments: [snapshot.data[index]]);
                                 },
                               ),
                         SizedBox(
@@ -203,8 +205,8 @@ class HomeView extends GetView<HomeController> {
       );
 
   statusBox({@required data}) => Container(
-    height: 600,
-    child: Align(
+        height: 600,
+        child: Align(
           alignment: Alignment.center,
           child: Padding(
             padding:
@@ -269,7 +271,8 @@ class HomeView extends GetView<HomeController> {
                         child: Text(
                           data['merchant_name'],
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: KprimaryColor),
+                              fontWeight: FontWeight.bold,
+                              color: KprimaryColor),
                         ),
                       ),
                       SizedBox(
@@ -302,8 +305,8 @@ class HomeView extends GetView<HomeController> {
                                 )
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child:
-                                      CustomImageCached(imageUrl: data['image']),
+                                  child: CustomImageCached(
+                                      imageUrl: data['image']),
                                 ),
                         ),
                       ],
@@ -314,7 +317,7 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
         ),
-  );
+      );
 
   newProducts() => FutureBuilder(
       future: controller.newProducts(),
@@ -332,8 +335,10 @@ class HomeView extends GetView<HomeController> {
                       productid: snapshot.data[index]['id'].toString(),
                       traderName: snapshot.data[index]['merchant']['name'],
                       onClick: () {
-                        Get.toNamed(Routes.PRODUCT,
-                            arguments: [snapshot.data[index]['id'].toString()]);
+                        Get.toNamed(
+                          Routes.PRODUCT,
+                          arguments: [snapshot.data[index]['id'].toString()],
+                        );
                       },
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'package:app_number/app/data/data.dart';
 import 'package:app_number/app/data/product_model.dart';
 import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -53,7 +54,9 @@ class ProductView extends GetView<ProductController> {
                   height: 10,
                 ),
                 defaultProductPrice(
-                    snapshot.data['name'], snapshot.data['price']),
+                  snapshot.data['name'],
+                  snapshot.data['price'],
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -114,22 +117,31 @@ class ProductView extends GetView<ProductController> {
                 button(
                   title: 'اضف الى السلة',
                   onPressed: () {
-
-
 //print(double.parse(snapshot.data['price'].toString()));
 
-                    cartProducts.add(
-                      new productItem(
-                        productsid: productid.toString(),
-                        productsName: snapshot.data['name'].toString(),
-                        productsPrice: double.parse(snapshot.data['price'].toString()) ,
-                        productsImage: snapshot.data['cover'],
-                        qty:  int.parse(controller.inputQty.text),
-                        detail: detail.value ? 0 : 1,
-                        reciving: reciving.value ? 0 : 1,
-                      ),
-                    );
-                    Fluttertoast.showToast(msg: 'تم الاضافة الى السلة');
+                    var result = cartProducts.where((cartProduct) => cartProduct
+                        .productsid
+                        .toLowerCase()
+                        .contains(productid.toString()));
+
+         
+                    if (result.length == 0) {
+                      cartProducts.add(
+                        new productItem(
+                          productsid: productid.toString(),
+                          productsName: snapshot.data['name'].toString(),
+                          productsPrice:
+                              double.parse(snapshot.data['price'].toString()),
+                          productsImage: snapshot.data['cover'],
+                          qty: int.parse(controller.inputQty.text),
+                          detail: detail.value ? 0 : 1,
+                          reciving: reciving.value ? 0 : 1,
+                        ),
+                      );
+                      Fluttertoast.showToast(msg: 'تم الاضافة الى السلة');
+                    } else {
+                      Fluttertoast.showToast(msg: 'هذا المنتج موجود فى السلة');
+                    }
                   },
                 ),
                 SizedBox(
@@ -209,11 +221,21 @@ class ProductView extends GetView<ProductController> {
                   bottomRight: Radius.circular(20),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Icon(
-                  FontAwesomeIcons.heart,
-                  color: KprimaryColor,
+              child: InkWell(
+                onTap: () {
+                  addwishlist(productid: productid);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8,
+                    right: 8,
+                    top: 7,
+                  ),
+                  child: SvgPicture.asset(
+                    'images/nounwish.svg',
+                    color: KprimaryColor,
+                    width: 32,
+                  ),
                 ),
               ),
             ),
@@ -276,7 +298,7 @@ class ProductView extends GetView<ProductController> {
           ),
         ),
         trailing: Text(
-          price.toString(),
+          '${price.toString()} ريال',
           style: TextStyle(
             color: KprimaryColor,
             fontWeight: FontWeight.bold,

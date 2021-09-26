@@ -1,6 +1,7 @@
 import 'package:app_number/app/data/app_const.dart';
 import 'package:app_number/app/data/component.dart';
 import 'package:app_number/app/data/data.dart';
+import 'package:app_number/app/modules/department/detail/views/product_list.dart';
 import 'package:app_number/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,9 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
   DepartmentDetailController controller = Get.put(DepartmentDetailController());
   @override
   Widget build(BuildContext context) {
+    controller.getCategorieProducts(
+      CategorieProductsid: Get.arguments[0],
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text('الاقسام'),
@@ -35,7 +39,13 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
                 child: button(
                   image: 'images/depart01.svg',
                   title: 'جديد',
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(
+                      ProductViewList(),
+                      fullscreenDialog: true,
+                      arguments: [controller.newest],
+                    );
+                  },
                 ),
               ),
               SizedBox(
@@ -45,7 +55,13 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
                 child: button(
                   image: 'images/depart02.svg',
                   title: 'الأكثر ',
-                  onTap: () {},
+                  onTap: () {
+                         Get.to(
+                      ProductViewList(),
+                      fullscreenDialog: true,
+                      arguments: [controller.most_selling],
+                    );
+                  },
                 ),
               ),
               SizedBox(
@@ -55,7 +71,13 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
                 child: button(
                   image: 'images/depart03.svg',
                   title: 'تصفيات',
-                  onTap: () {},
+                  onTap: () {
+                         Get.to(
+                      ProductViewList(),
+                      fullscreenDialog: true,
+                      arguments: [controller.offers],
+                    );
+                  },
                 ),
               ),
               SizedBox(
@@ -188,8 +210,7 @@ class DepartmentDetailView extends GetView<DepartmentDetailController> {
                                 price: snapshot.data['newest'][index]['price']
                                     .toString(),
                                 title: snapshot.data['newest'][index]['name'],
-                                traderName: snapshot.data['newest'][index]
-                                    ['name'],
+                                traderName: '',
                                 productId: snapshot.data['newest'][index]['id'],
                               ),
                             ),

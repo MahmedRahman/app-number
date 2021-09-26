@@ -14,10 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/layout_controller.dart';
+import 'package:badges/badges.dart';
 
 class LayoutView extends GetView<LayoutController> {
   GlobalKey<SliderMenuContainerState> _key =
@@ -91,7 +90,7 @@ class LayoutView extends GetView<LayoutController> {
                         ),
                         isLogin.value
                             ? Text(
-                                'محمد عبد الرحمن',
+                                'Number 1',
                                 style: TextStyle(
                                   color: KprimaryColor,
                                   fontWeight: FontWeight.bold,
@@ -130,7 +129,7 @@ class LayoutView extends GetView<LayoutController> {
                             _key.currentState.toggle();
                             selectScreen.value = 1;
                           },
-                          title: 'المفضلة',
+                          title: 'قائمة الامنيات',
                           icons: FontAwesomeIcons.solidHeart,
                         ),
                         defaultbntListTile(
@@ -177,6 +176,15 @@ class LayoutView extends GetView<LayoutController> {
                           title: 'سياسة ارجاع السلع',
                           icons: FontAwesomeIcons.infoCircle,
                         ),
+                        defaultbntListTile(
+                          onTap: () {
+                            _key.currentState.toggle();
+                            selectScreen.value = 2;
+                            Get.toNamed(Routes.SIGNIN, arguments: [1, '', '']);
+                          },
+                          title: 'تسجيل دخول كتاجر',
+                          icons: FontAwesomeIcons.signInAlt,
+                        ),
                         isLogin.value
                             ? defaultbntListTile(
                                 onTap: () {
@@ -184,6 +192,7 @@ class LayoutView extends GetView<LayoutController> {
                                   Get.find<UserAuth>().setUserToken(null);
 
                                   isLogin.value = false;
+                                  Get.toNamed(Routes.SPLASH);
                                 },
                                 title: 'تسجيل خروج',
                                 icons: FontAwesomeIcons.signOutAlt,
@@ -191,8 +200,11 @@ class LayoutView extends GetView<LayoutController> {
                             : defaultbntListTile(
                                 onTap: () {
                                   _key.currentState.toggle();
-                                  selectScreen.value=2;
-                                  Get.toNamed(Routes.SIGNIN);
+                                  selectScreen.value = 2;
+                                  Get.toNamed(
+                                    Routes.SIGNIN,
+                                    arguments: [0, '', ''],
+                                  );
                                 },
                                 title: 'تسجيل دخول',
                                 icons: FontAwesomeIcons.signInAlt,
@@ -230,19 +242,32 @@ class LayoutView extends GetView<LayoutController> {
                                 _key.currentState.toggle();
                               },
                             ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.shopping_bag,
-                                color: Colors.white,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: InkWell(
+                                onTap: () {
+                                  if (isLogin.value) {
+                                    selectScreen.value = 3;
+                                  } else {
+                                    Get.toNamed(Routes.SIGNIN);
+                                  }
+                                },
+                                child: Badge(
+                                  badgeColor: Colors.white,
+                                  badgeContent: Text(
+                                    cartProducts.length.toString(),
+                                    style: TextStyle(
+                                      color: KprimaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  child: Icon(
+                                    Icons.shopping_bag,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                              onPressed: () {
-                                if (isLogin.value) {
-                                  selectScreen.value = 3;
-                                } else {
-                                  Get.toNamed(Routes.SIGNIN);
-                                }
-                              },
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -253,6 +278,7 @@ class LayoutView extends GetView<LayoutController> {
                           height: 60,
                           color: Colors.transparent,
                           child: TextFormField(
+                            controller: controller.serechText,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
@@ -261,11 +287,14 @@ class LayoutView extends GetView<LayoutController> {
                               ),
                               fillColor: Colors.white,
                               filled: true,
-                              suffixIcon: Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: SvgPicture.asset(
+                              suffixIcon: IconButton(
+                                icon: SvgPicture.asset(
                                   'images/preferences_icon.svg',
                                 ),
+                                onPressed: () {
+                                  controller.getSearchProduct();
+                                  FocusScope.of(context).unfocus();
+                                },
                               ),
                               prefixIcon: Padding(
                                 padding: const EdgeInsets.all(15),
@@ -283,9 +312,8 @@ class LayoutView extends GetView<LayoutController> {
               ),
               body: screen[selectScreen.value],
               bottomNavigationBar: CurvedNavigationBar(
-                
                 backgroundColor: Colors.transparent,
-                buttonBackgroundColor: KprimaryColor.withOpacity(.5),
+                buttonBackgroundColor: Colors.grey[300],
                 index: selectScreen.value,
                 height: 60,
                 color: Colors.grey[300],
@@ -299,9 +327,10 @@ class LayoutView extends GetView<LayoutController> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Icon(
-                      FontAwesomeIcons.heart,
+                    child: SvgPicture.asset(
+                      'images/nounwish.svg',
                       color: KprimaryColor,
+                      width: 32,
                     ),
                   ),
                   Padding(

@@ -12,6 +12,7 @@ class ProfileController extends GetxController {
   TextEditingController phone = new TextEditingController();
   TextEditingController oldPassword = new TextEditingController();
   TextEditingController newPassword = new TextEditingController();
+  //TextEditingController city = new TextEditingController();
 
   String image;
 
@@ -22,15 +23,20 @@ class ProfileController extends GetxController {
       name.text = response.body['data']['name'];
       email.text = response.body['data']['email'];
       phone.text = response.body['data']['mobile'];
+      //city.text =response.body['data']['mobile'];
       image = response.body['data']['avatar'];
       return response.body['data'];
     }
   }
 
-    editProfile() async {
+
+  
+
+  editProfile() async {
     ResponsModel responsModel = await WebServices().editProfile(
       name: name.text,
       phone: phone.text,
+      //city: city.text,
     );
 
     if (responsModel.success) {
@@ -49,8 +55,7 @@ class ProfileController extends GetxController {
     }
   }
 
-
- profileChangePassword() async {
+  profileChangePassword() async {
     ResponsModel responsModel = await WebServices().profileChangePassword(
         oldPassword: oldPassword.text, newPassword: newPassword.text);
 
@@ -70,5 +75,4 @@ class ProfileController extends GetxController {
       }
     }
   }
-  
 }

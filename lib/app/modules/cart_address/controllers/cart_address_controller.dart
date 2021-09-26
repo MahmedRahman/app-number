@@ -19,6 +19,8 @@ class CartAddressController extends GetxController {
   void onClose() {}
 
   var FutureList = Future.value().obs;
+
+  
   Future getAddresses() async {
     ResponsModel userAdress;
     userAdress = await WebServices().getAddresses();

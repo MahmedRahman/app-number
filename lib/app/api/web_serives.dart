@@ -50,18 +50,28 @@ class WebServices extends APIManger {
     return response;
   }
 
+  Future<ResponsModel> getSlider() async {
+    ResponsModel response = await repGet(
+      'slider',
+      showLoading: true,
+    );
+    return response;
+  }
+
   Future<ResponsModel> merchantSignup({
     @required name,
     @required email,
     @required mobile,
     @required password,
+    @required city,
     @required File image,
   }) async {
     final form = FormData({
       'name_ar': name,
       'email': email,
-      'mobile': mobile,
+      'phone': mobile,
       'password': password,
+      'city': city,
       'image': GetUtils.isNull(image)
           ? ''
           : MultipartFile(image, filename: 'temp.png'),
@@ -76,6 +86,7 @@ class WebServices extends APIManger {
     @required name,
     @required email,
     @required mobile,
+    @required city,
     @required password,
   }) async {
     ResponsModel response = await repPost(
@@ -84,6 +95,7 @@ class WebServices extends APIManger {
           'name': name,
           'email': email,
           'mobile': mobile,
+          'city': city,
           'password': password,
         },
         showLoading: true);
@@ -108,6 +120,14 @@ class WebServices extends APIManger {
 
   Future<ResponsModel> getTax() async {
     ResponsModel response = await repGet('orders/tax');
+    return response;
+  }
+
+  Future<ResponsModel> getShippingOrders({address_id, products}) async {
+    ResponsModel response = await repPost('orders/shipping', {
+      'address_id': address_id.toString(),
+      'products': products,
+    });
     return response;
   }
 
@@ -437,6 +457,14 @@ class WebServices extends APIManger {
     return response;
   }
 
+  Future<ResponsModel> subscribeRequestMerchant() async {
+    ResponsModel response = await repPost(
+      'merchant/subscribe_request',
+      {},
+    );
+    return response;
+  }
+
 //Quize
 
   Future<ResponsModel> getQuizMerchant() async {
@@ -455,6 +483,10 @@ class WebServices extends APIManger {
           ? ''
           : MultipartFile(image, filename: 'temp.png'),
       'prize': prize,
+      'answer1': 'test1',
+      'answer2': 'test1',
+      'answer3': 'test1',
+      'correct_answer': 'test1',
     });
 
     ResponsModel response = await repPost(
@@ -513,11 +545,13 @@ class WebServices extends APIManger {
   Future<ResponsModel> editProfileMerchant({
     @required name,
     @required phone,
+    @required city,
     @required File profileImage,
   }) async {
     final form = FormData({
       'name': name,
       'phone': phone,
+      'city': city,
       'image': GetUtils.isNull(profileImage)
           ? ''
           : MultipartFile(profileImage, filename: 'temp.png'),
@@ -536,6 +570,16 @@ class WebServices extends APIManger {
       'old_password': oldPassword,
       'new_password': newPassword,
     });
+    return response;
+  }
+
+  Future<ResponsModel> approveOrderMerchant({
+    @required order,
+  }) async {
+    ResponsModel response = await repPost(
+      'merchant/orders/approve_order?order=$order',
+      {},
+    );
     return response;
   }
 

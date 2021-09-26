@@ -22,7 +22,7 @@ class SplashView extends GetView<SplashController> {
     return Scaffold(
       body: InkWell(
         onTap: () {
-          Get.toNamed(Routes.LAYOUT);
+          //Get.toNamed(Routes.LAYOUT);
         },
         child: Container(
             width: double.infinity,

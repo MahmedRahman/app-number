@@ -1,3 +1,4 @@
+import 'package:app_number/app/data/app_const.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -11,11 +12,19 @@ class UserAuth extends GetxService {
   }
 
   String getUserToken() {
-    return storage.read(KuserToken);
+    String tokan;
+    tokan = storage.read(KuserToken);
+
+    if(tokan != null) {
+      isLogin.value = true;
+    } else {
+      isLogin.value = false;
+    }
+
+    return tokan;
   }
 
   void signout() {
     setUserToken(null);
-    
   }
 }

@@ -28,6 +28,13 @@ List<Product> ProductList = [];
 
 List categoriesItems = [];
 
+List cityListItems = [
+  {"id": 1, "name": "جدة"},
+  {"id": 2, "name": "الرياض"},
+  {"id": 3, "name": "الخبر"},
+  {"id": 4, "name": "ابها"}
+];
+
 List<productItem> cartProducts = List<productItem>.empty(growable: true).obs;
 
 class cartItem {
@@ -41,6 +48,7 @@ class productItem {
   var productsid;
   var productsName;
   var productsImage;
+  var merchantName;
   double productsPrice;
   int qty;
   var detail;
@@ -52,6 +60,7 @@ class productItem {
     @required this.productsImage,
     @required this.productsPrice,
     @required this.qty,
+    @required this.merchantName,
     this.detail = 0,
     this.reciving = 0,
   });
@@ -80,9 +89,9 @@ addwishlist({@required productid}) async {
       Response response = value.data;
       print(response.bodyString);
       if (response.body['status']) {
-        Get.snackbar(Appname, 'تم الاضافة الى المضلة');
+        Fluttertoast.showToast(msg: 'تم الاضافة الى المضلة');
       } else {
-        Get.snackbar(Appname, 'هذا المنتج موجود فى المضلة');
+        Fluttertoast.showToast(msg: 'هذا المنتج موجود فى المضلة');
       }
     });
   } else {

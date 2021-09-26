@@ -69,6 +69,7 @@ itemProduct(
         {@required image,
         @required title,
         @required price,
+        discout,
         @required traderName,
         @required productId}) =>
     Padding(
@@ -124,11 +125,20 @@ itemProduct(
                       SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        '$price ريال',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: KprimaryColor),
-                      ),
+                      GetUtils.isNullOrBlank(discout)
+                          ? Text(
+                              '$price ريال',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: KprimaryColor),
+                            )
+                          : Text(
+                              '$price ريال  $discout %',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: KprimaryColor,
+                              ),
+                            ),
                       SizedBox(
                         height: 10,
                       ),
@@ -148,15 +158,26 @@ itemProduct(
                           ),
                           onPressed: () {
                             // addCard(product_id: productId, quantity: 1);
+                            var result = cartProducts.where((cartProduct) =>
+                                cartProduct.productsid
+                                    .toLowerCase()
+                                    .contains(productId));
 
-                            cartProducts.add(new productItem(
-                              productsid: productId,
-                              productsName: title,
-                              productsPrice: price,
-                              productsImage: image,
-                              qty: 1,
-                            ));
-                            Fluttertoast.showToast(msg: 'تم الاضافة الى السلة');
+                            if (result.length == 0) {
+                              cartProducts.add(new productItem(
+                                productsid: productId,
+                                productsName: title,
+                                productsPrice: price,
+                                productsImage: image,
+                                merchantName: traderName,
+                                qty: 1,
+                              ));
+                              Fluttertoast.showToast(
+                                  msg: 'تم الاضافة الى السلة');
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: 'هذا المنتج موجود فى السلة');
+                            }
                           },
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,32 +199,6 @@ itemProduct(
                   ),
                 ),
               ),
-
-              /* Stack(
-                  
-                  alignment: Alignment.topLeft,
-                  children: [
-                  
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: KprimaryColor.withOpacity(.3),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                        ),
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.favorite,
-                              color: KprimaryColor,
-                            ),
-                            onPressed: () {}),
-                      ),
-                    )
-                  ],
-                ),*/
             ],
           ),
         ),
@@ -230,7 +225,7 @@ Widget box({
           ),
         ),
         child: MaterialButton(
-        shape: RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
           splashColor: KprimaryColor.withOpacity(.5),
@@ -409,15 +404,17 @@ Widget productBox({
                     height: 150,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.black,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20),
                       ),
                     ),
-                    child: Image.network(
-                      image,
-                      fit: BoxFit.fill,
+                    child: SizedBox(
+                      child: Image.network(
+                        image,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -426,6 +423,8 @@ Widget productBox({
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -485,16 +484,38 @@ Widget productBox({
                       borderRadius: BorderRadius.circular(25),
                     ),
                     onPressed: () async {
-                      cartProducts.add(new productItem(
-                        productsid: productid,
-                        productsName: title,
-                        productsPrice: double.parse(price) ,
-                        productsImage: image,
-                        qty: 1,
-                      ));
-                      Fluttertoast.showToast(msg: 'تم الاضافة الى السلة');
 
-                      //addCard(product_id: productid, quantity: '1');
+
+ var result = cartProducts.where((cartProduct) =>
+                                cartProduct.productsid
+                                    .toLowerCase()
+                                    .contains(productid));
+
+                            if (result.length == 0) {
+                       cartProducts.add(
+                        new productItem(
+                          productsid: productid,
+                          productsName: title,
+                          productsPrice: double.parse(price),
+                          merchantName: traderName,
+                          productsImage: image,
+                          qty: 1,
+                        ),
+                      );
+                              Fluttertoast.showToast(
+                                  msg: 'تم الاضافة الى السلة');
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: 'هذا المنتج موجود فى السلة');
+                            }
+
+
+
+
+
+
+                     
+              
                     },
                     child: Text(
                       'اضف الى السلة',
@@ -519,14 +540,16 @@ Widget productBox({
                       bottomRight: Radius.circular(20),
                     ),
                   ),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.favorite,
-                        color: KprimaryColor,
-                      ),
-                      onPressed: () {
-                        addwishlist(productid: productid);
-                      }),
+                  child: InkWell(
+                    onTap: () {
+                      addwishlist(productid: productid);
+                    },
+                    child: SvgPicture.asset(
+                      'images/nounwish.svg',
+                      color: KprimaryColor,
+                      width: 32,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -656,8 +679,21 @@ defaultButton({@required String title, @required Function onPressed}) =>
       width: Get.width,
       height: 60,
       child: ElevatedButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+              side: BorderSide(color: Colors.transparent),
+            ),
+          ),
+        ),
         onPressed: onPressed,
-        child: Text(title),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
 

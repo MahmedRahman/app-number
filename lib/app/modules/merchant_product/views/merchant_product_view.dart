@@ -50,24 +50,24 @@ class MerchantProductView extends GetView<MerchantProductController> {
                             children: List.generate(
                               snapshot.data.length,
                               (index) => productItem(
-                                productId: snapshot.data[index]['id'],
-                                productName: snapshot.data[index]['name'],
-                                price: snapshot.data[index]['price'],
-                                qty: snapshot.data[index]['stock'],
-                                imageUrl:
-                                    snapshot.data[index]['images'].length == 0
-                                        ? ''
-                                        : snapshot.data[index]['images'][0]
-                                            ['image'],
-                                onPressed: () {
-                                  controller.deleteProductsMerchant(
-                                    productId: snapshot.data[index]['id'],
-                                  );
-                                },
-                                onEdit :(){
-                                  Get.toNamed(Routes.MERCHANT_EDIT_PRODUCT,arguments: [snapshot.data[index]]);
-                                }
-                              ),
+                                  productId: snapshot.data[index]['id'],
+                                  productName: snapshot.data[index]['name'],
+                                  price: snapshot.data[index]['price'],
+                                  qty: snapshot.data[index]['stock'],
+                                  imageUrl:
+                                      snapshot.data[index]['images'].length == 0
+                                          ? ''
+                                          : snapshot.data[index]['images'][0]
+                                              ['image'],
+                                  onPressed: () {
+                                    controller.deleteProductsMerchant(
+                                      productId: snapshot.data[index]['id'],
+                                    );
+                                  },
+                                  onEdit: () {
+                                    Get.toNamed(Routes.MERCHANT_EDIT_PRODUCT,
+                                        arguments: [snapshot.data[index]]);
+                                  }),
                             ),
                           );
                   } else {
@@ -114,7 +114,9 @@ Widget productItem(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                         height: 150,
-                        child: CustomImageCached(imageUrl: imageUrl),
+                        child: CustomImageCached(
+                          imageUrl: imageUrl,
+                        ),
                       ),
                     ),
                   ),
@@ -133,7 +135,9 @@ Widget productItem(
                       Text(
                         productName,
                         style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -141,7 +145,9 @@ Widget productItem(
                       Text(
                         '$price ريال',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: KprimaryColor),
+                          fontWeight: FontWeight.bold,
+                          color: KprimaryColor,
+                        ),
                       ),
                       SizedBox(
                         height: 10,
