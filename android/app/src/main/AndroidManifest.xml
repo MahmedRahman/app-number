@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.matrix.app_number">
+    package="com.number1.app">
 
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
